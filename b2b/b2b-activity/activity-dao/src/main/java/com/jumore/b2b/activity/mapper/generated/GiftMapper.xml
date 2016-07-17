@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumore.b2b.activity.mapper.GiftMapper" >
+  <resultMap id="BaseResultMap" type="com.jumore.b2b.activity.model.Gift" >
+    <id column="ID" property="ID" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="categoryCode" property="categoryCode" jdbcType="VARCHAR" />
+    <result column="cycle" property="cycle" jdbcType="INTEGER" />
+    <result column="value" property="value" jdbcType="BIGINT" />
+    <result column="unitCode" property="unitCode" jdbcType="VARCHAR" />
+    <result column="userWay" property="userWay" jdbcType="INTEGER" />
+    <result column="locked" property="locked" jdbcType="CHAR" />
+    <result column="businessCode" property="businessCode" jdbcType="VARCHAR" />
+    <result column="thiredBusCode" property="thiredBusCode" jdbcType="VARCHAR" />
+    <result column="deficitNum" property="deficitNum" jdbcType="BIGINT" />
+    <result column="stockNum" property="stockNum" jdbcType="BIGINT" />
+    <result column="createBy" property="createBy" jdbcType="BIGINT" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="srcCode" property="srcCode" jdbcType="BIGINT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, name, status, categoryCode, cycle, value, unitCode, userWay, locked, businessCode, 
+    thiredBusCode, deficitNum, stockNum, createBy, createTime, srcCode, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jumore.b2b.activity.model.GiftQueryHelper" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from gift
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from gift
+    where ID = #{ID,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from gift
+    where ID = #{ID,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jumore.b2b.activity.model.GiftQueryHelper" >
+    delete from gift
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jumore.b2b.activity.model.Gift" >
+    <selectKey resultType="java.lang.Long" keyProperty="ID" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into gift (ID, name, status, 
+      categoryCode, cycle, value, 
+      unitCode, userWay, locked, 
+      businessCode, thiredBusCode, deficitNum, 
+      stockNum, createBy, createTime, 
+      srcCode, remark)
+    values (#{ID,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{categoryCode,jdbcType=VARCHAR}, #{cycle,jdbcType=INTEGER}, #{value,jdbcType=BIGINT}, 
+      #{unitCode,jdbcType=VARCHAR}, #{userWay,jdbcType=INTEGER}, #{locked,jdbcType=CHAR}, 
+      #{businessCode,jdbcType=VARCHAR}, #{thiredBusCode,jdbcType=VARCHAR}, #{deficitNum,jdbcType=BIGINT}, 
+      #{stockNum,jdbcType=BIGINT}, #{createBy,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{srcCode,jdbcType=BIGINT}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jumore.b2b.activity.model.Gift" >
+    <selectKey resultType="java.lang.Long" keyProperty="ID" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into gift
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      ID,
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="categoryCode != null" >
+        categoryCode,
+      </if>
+      <if test="cycle != null" >
+        cycle,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+      <if test="unitCode != null" >
+        unitCode,
+      </if>
+      <if test="userWay != null" >
+        userWay,
+      </if>
+      <if test="locked != null" >
+        locked,
+      </if>
+      <if test="businessCode != null" >
+        businessCode,
+      </if>
+      <if test="thiredBusCode != null" >
+        thiredBusCode,
+      </if>
+      <if test="deficitNum != null" >
+        deficitNum,
+      </if>
+      <if test="stockNum != null" >
+        stockNum,
+      </if>
+      <if test="createBy != null" >
+        createBy,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="srcCode != null" >
+        srcCode,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{ID,jdbcType=BIGINT},
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="categoryCode != null" >
+        #{categoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cycle != null" >
+        #{cycle,jdbcType=INTEGER},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=BIGINT},
+      </if>
+      <if test="unitCode != null" >
+        #{unitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userWay != null" >
+        #{userWay,jdbcType=INTEGER},
+      </if>
+      <if test="locked != null" >
+        #{locked,jdbcType=CHAR},
+      </if>
+      <if test="businessCode != null" >
+        #{businessCode,jdbcType=VARCHAR},
+      </if>
+      <if test="thiredBusCode != null" >
+        #{thiredBusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deficitNum != null" >
+        #{deficitNum,jdbcType=BIGINT},
+      </if>
+      <if test="stockNum != null" >
+        #{stockNum,jdbcType=BIGINT},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="srcCode != null" >
+        #{srcCode,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jumore.b2b.activity.model.GiftQueryHelper" resultType="java.lang.Integer" >
+    select count(*) from gift
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gift
+    <set >
+      <if test="record.ID != null" >
+        ID = #{record.ID,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.categoryCode != null" >
+        categoryCode = #{record.categoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cycle != null" >
+        cycle = #{record.cycle,jdbcType=INTEGER},
+      </if>
+      <if test="record.value != null" >
+        value = #{record.value,jdbcType=BIGINT},
+      </if>
+      <if test="record.unitCode != null" >
+        unitCode = #{record.unitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userWay != null" >
+        userWay = #{record.userWay,jdbcType=INTEGER},
+      </if>
+      <if test="record.locked != null" >
+        locked = #{record.locked,jdbcType=CHAR},
+      </if>
+      <if test="record.businessCode != null" >
+        businessCode = #{record.businessCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thiredBusCode != null" >
+        thiredBusCode = #{record.thiredBusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deficitNum != null" >
+        deficitNum = #{record.deficitNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.stockNum != null" >
+        stockNum = #{record.stockNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.createBy != null" >
+        createBy = #{record.createBy,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null" >
+        createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.srcCode != null" >
+        srcCode = #{record.srcCode,jdbcType=BIGINT},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gift
+    set ID = #{record.ID,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      categoryCode = #{record.categoryCode,jdbcType=VARCHAR},
+      cycle = #{record.cycle,jdbcType=INTEGER},
+      value = #{record.value,jdbcType=BIGINT},
+      unitCode = #{record.unitCode,jdbcType=VARCHAR},
+      userWay = #{record.userWay,jdbcType=INTEGER},
+      locked = #{record.locked,jdbcType=CHAR},
+      businessCode = #{record.businessCode,jdbcType=VARCHAR},
+      thiredBusCode = #{record.thiredBusCode,jdbcType=VARCHAR},
+      deficitNum = #{record.deficitNum,jdbcType=BIGINT},
+      stockNum = #{record.stockNum,jdbcType=BIGINT},
+      createBy = #{record.createBy,jdbcType=BIGINT},
+      createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      srcCode = #{record.srcCode,jdbcType=BIGINT},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jumore.b2b.activity.model.Gift" >
+    update gift
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="categoryCode != null" >
+        categoryCode = #{categoryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cycle != null" >
+        cycle = #{cycle,jdbcType=INTEGER},
+      </if>
+      <if test="value != null" >
+        value = #{value,jdbcType=BIGINT},
+      </if>
+      <if test="unitCode != null" >
+        unitCode = #{unitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userWay != null" >
+        userWay = #{userWay,jdbcType=INTEGER},
+      </if>
+      <if test="locked != null" >
+        locked = #{locked,jdbcType=CHAR},
+      </if>
+      <if test="businessCode != null" >
+        businessCode = #{businessCode,jdbcType=VARCHAR},
+      </if>
+      <if test="thiredBusCode != null" >
+        thiredBusCode = #{thiredBusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deficitNum != null" >
+        deficitNum = #{deficitNum,jdbcType=BIGINT},
+      </if>
+      <if test="stockNum != null" >
+        stockNum = #{stockNum,jdbcType=BIGINT},
+      </if>
+      <if test="createBy != null" >
+        createBy = #{createBy,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="srcCode != null" >
+        srcCode = #{srcCode,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{ID,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jumore.b2b.activity.model.Gift" >
+    update gift
+    set name = #{name,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      categoryCode = #{categoryCode,jdbcType=VARCHAR},
+      cycle = #{cycle,jdbcType=INTEGER},
+      value = #{value,jdbcType=BIGINT},
+      unitCode = #{unitCode,jdbcType=VARCHAR},
+      userWay = #{userWay,jdbcType=INTEGER},
+      locked = #{locked,jdbcType=CHAR},
+      businessCode = #{businessCode,jdbcType=VARCHAR},
+      thiredBusCode = #{thiredBusCode,jdbcType=VARCHAR},
+      deficitNum = #{deficitNum,jdbcType=BIGINT},
+      stockNum = #{stockNum,jdbcType=BIGINT},
+      createBy = #{createBy,jdbcType=BIGINT},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      srcCode = #{srcCode,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where ID = #{ID,jdbcType=BIGINT}
+  </update>
+</mapper>

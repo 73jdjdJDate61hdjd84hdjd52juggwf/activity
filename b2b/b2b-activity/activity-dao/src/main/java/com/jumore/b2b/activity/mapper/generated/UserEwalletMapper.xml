@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumore.b2b.activity.mapper.UserEwalletMapper" >
+  <resultMap id="BaseResultMap" type="com.jumore.b2b.activity.model.UserEwallet" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="userId" property="userId" jdbcType="BIGINT" />
+    <result column="platformCode" property="platformCode" jdbcType="BIGINT" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="userMobile" property="userMobile" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="BIGINT" />
+    <result column="lastTakenBalance" property="lastTakenBalance" jdbcType="BIGINT" />
+    <result column="lastTakenTime" property="lastTakenTime" jdbcType="TIMESTAMP" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="lastTakenAcc" property="lastTakenAcc" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="locked" property="locked" jdbcType="CHAR" />
+    <result column="lockTime" property="lockTime" jdbcType="TIMESTAMP" />
+    <result column="unlockTime" property="unlockTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, userId, platformCode, userName, userMobile, balance, lastTakenBalance, lastTakenTime, 
+    createTime, lastTakenAcc, status, locked, lockTime, unlockTime, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jumore.b2b.activity.model.UserEwalletQueryHelper" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_ewallet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_ewallet
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_ewallet
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jumore.b2b.activity.model.UserEwalletQueryHelper" >
+    delete from user_ewallet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jumore.b2b.activity.model.UserEwallet" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_ewallet (id, userId, platformCode, 
+      userName, userMobile, balance, 
+      lastTakenBalance, lastTakenTime, createTime, 
+      lastTakenAcc, status, locked, 
+      lockTime, unlockTime, remark
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{platformCode,jdbcType=BIGINT}, 
+      #{userName,jdbcType=VARCHAR}, #{userMobile,jdbcType=VARCHAR}, #{balance,jdbcType=BIGINT}, 
+      #{lastTakenBalance,jdbcType=BIGINT}, #{lastTakenTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastTakenAcc,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{locked,jdbcType=CHAR}, 
+      #{lockTime,jdbcType=TIMESTAMP}, #{unlockTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jumore.b2b.activity.model.UserEwallet" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_ewallet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      <if test="userId != null" >
+        userId,
+      </if>
+      <if test="platformCode != null" >
+        platformCode,
+      </if>
+      <if test="userName != null" >
+        userName,
+      </if>
+      <if test="userMobile != null" >
+        userMobile,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="lastTakenBalance != null" >
+        lastTakenBalance,
+      </if>
+      <if test="lastTakenTime != null" >
+        lastTakenTime,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="lastTakenAcc != null" >
+        lastTakenAcc,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="locked != null" >
+        locked,
+      </if>
+      <if test="lockTime != null" >
+        lockTime,
+      </if>
+      <if test="unlockTime != null" >
+        unlockTime,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id,jdbcType=BIGINT},
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="platformCode != null" >
+        #{platformCode,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=BIGINT},
+      </if>
+      <if test="lastTakenBalance != null" >
+        #{lastTakenBalance,jdbcType=BIGINT},
+      </if>
+      <if test="lastTakenTime != null" >
+        #{lastTakenTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastTakenAcc != null" >
+        #{lastTakenAcc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="locked != null" >
+        #{locked,jdbcType=CHAR},
+      </if>
+      <if test="lockTime != null" >
+        #{lockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unlockTime != null" >
+        #{unlockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jumore.b2b.activity.model.UserEwalletQueryHelper" resultType="java.lang.Integer" >
+    select count(*) from user_ewallet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_ewallet
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        userId = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.platformCode != null" >
+        platformCode = #{record.platformCode,jdbcType=BIGINT},
+      </if>
+      <if test="record.userName != null" >
+        userName = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userMobile != null" >
+        userMobile = #{record.userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.balance != null" >
+        balance = #{record.balance,jdbcType=BIGINT},
+      </if>
+      <if test="record.lastTakenBalance != null" >
+        lastTakenBalance = #{record.lastTakenBalance,jdbcType=BIGINT},
+      </if>
+      <if test="record.lastTakenTime != null" >
+        lastTakenTime = #{record.lastTakenTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastTakenAcc != null" >
+        lastTakenAcc = #{record.lastTakenAcc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.locked != null" >
+        locked = #{record.locked,jdbcType=CHAR},
+      </if>
+      <if test="record.lockTime != null" >
+        lockTime = #{record.lockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.unlockTime != null" >
+        unlockTime = #{record.unlockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_ewallet
+    set id = #{record.id,jdbcType=BIGINT},
+      userId = #{record.userId,jdbcType=BIGINT},
+      platformCode = #{record.platformCode,jdbcType=BIGINT},
+      userName = #{record.userName,jdbcType=VARCHAR},
+      userMobile = #{record.userMobile,jdbcType=VARCHAR},
+      balance = #{record.balance,jdbcType=BIGINT},
+      lastTakenBalance = #{record.lastTakenBalance,jdbcType=BIGINT},
+      lastTakenTime = #{record.lastTakenTime,jdbcType=TIMESTAMP},
+      createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      lastTakenAcc = #{record.lastTakenAcc,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      locked = #{record.locked,jdbcType=CHAR},
+      lockTime = #{record.lockTime,jdbcType=TIMESTAMP},
+      unlockTime = #{record.unlockTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jumore.b2b.activity.model.UserEwallet" >
+    update user_ewallet
+    <set >
+      <if test="userId != null" >
+        userId = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="platformCode != null" >
+        platformCode = #{platformCode,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        userName = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        userMobile = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=BIGINT},
+      </if>
+      <if test="lastTakenBalance != null" >
+        lastTakenBalance = #{lastTakenBalance,jdbcType=BIGINT},
+      </if>
+      <if test="lastTakenTime != null" >
+        lastTakenTime = #{lastTakenTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastTakenAcc != null" >
+        lastTakenAcc = #{lastTakenAcc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="locked != null" >
+        locked = #{locked,jdbcType=CHAR},
+      </if>
+      <if test="lockTime != null" >
+        lockTime = #{lockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unlockTime != null" >
+        unlockTime = #{unlockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jumore.b2b.activity.model.UserEwallet" >
+    update user_ewallet
+    set userId = #{userId,jdbcType=BIGINT},
+      platformCode = #{platformCode,jdbcType=BIGINT},
+      userName = #{userName,jdbcType=VARCHAR},
+      userMobile = #{userMobile,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=BIGINT},
+      lastTakenBalance = #{lastTakenBalance,jdbcType=BIGINT},
+      lastTakenTime = #{lastTakenTime,jdbcType=TIMESTAMP},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      lastTakenAcc = #{lastTakenAcc,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      locked = #{locked,jdbcType=CHAR},
+      lockTime = #{lockTime,jdbcType=TIMESTAMP},
+      unlockTime = #{unlockTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

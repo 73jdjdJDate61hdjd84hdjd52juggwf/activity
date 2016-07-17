@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumore.b2b.activity.mapper.UserGiftMapper" >
+  <resultMap id="BaseResultMap" type="com.jumore.b2b.activity.model.UserGift" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="userId" property="userId" jdbcType="BIGINT" />
+    <result column="platformCode" property="platformCode" jdbcType="BIGINT" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="srcBizId" property="srcBizId" jdbcType="BIGINT" />
+    <result column="srcBizName" property="srcBizName" jdbcType="VARCHAR" />
+    <result column="overdueTime" property="overdueTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="creatBy" property="creatBy" jdbcType="BIGINT" />
+    <result column="creattime" property="creattime" jdbcType="TIMESTAMP" />
+    <result column="gitName" property="gitName" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="BIGINT" />
+    <result column="giftBizCode" property="giftBizCode" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, userId, platformCode, userName, mobile, srcBizId, srcBizName, overdueTime, status, 
+    creatBy, creattime, gitName, amount, giftBizCode, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jumore.b2b.activity.model.UserGiftQueryHelper" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_gift
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_gift
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_gift
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jumore.b2b.activity.model.UserGiftQueryHelper" >
+    delete from user_gift
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jumore.b2b.activity.model.UserGift" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_gift (id, userId, platformCode, 
+      userName, mobile, srcBizId, 
+      srcBizName, overdueTime, status, 
+      creatBy, creattime, gitName, 
+      amount, giftBizCode, remark
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{platformCode,jdbcType=BIGINT}, 
+      #{userName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{srcBizId,jdbcType=BIGINT}, 
+      #{srcBizName,jdbcType=VARCHAR}, #{overdueTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{creatBy,jdbcType=BIGINT}, #{creattime,jdbcType=TIMESTAMP}, #{gitName,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=BIGINT}, #{giftBizCode,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jumore.b2b.activity.model.UserGift" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_gift
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      <if test="userId != null" >
+        userId,
+      </if>
+      <if test="platformCode != null" >
+        platformCode,
+      </if>
+      <if test="userName != null" >
+        userName,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="srcBizId != null" >
+        srcBizId,
+      </if>
+      <if test="srcBizName != null" >
+        srcBizName,
+      </if>
+      <if test="overdueTime != null" >
+        overdueTime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="creatBy != null" >
+        creatBy,
+      </if>
+      <if test="creattime != null" >
+        creattime,
+      </if>
+      <if test="gitName != null" >
+        gitName,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="giftBizCode != null" >
+        giftBizCode,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id,jdbcType=BIGINT},
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="platformCode != null" >
+        #{platformCode,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="srcBizId != null" >
+        #{srcBizId,jdbcType=BIGINT},
+      </if>
+      <if test="srcBizName != null" >
+        #{srcBizName,jdbcType=VARCHAR},
+      </if>
+      <if test="overdueTime != null" >
+        #{overdueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creatBy != null" >
+        #{creatBy,jdbcType=BIGINT},
+      </if>
+      <if test="creattime != null" >
+        #{creattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gitName != null" >
+        #{gitName,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=BIGINT},
+      </if>
+      <if test="giftBizCode != null" >
+        #{giftBizCode,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jumore.b2b.activity.model.UserGiftQueryHelper" resultType="java.lang.Integer" >
+    select count(*) from user_gift
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_gift
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        userId = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.platformCode != null" >
+        platformCode = #{record.platformCode,jdbcType=BIGINT},
+      </if>
+      <if test="record.userName != null" >
+        userName = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.srcBizId != null" >
+        srcBizId = #{record.srcBizId,jdbcType=BIGINT},
+      </if>
+      <if test="record.srcBizName != null" >
+        srcBizName = #{record.srcBizName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.overdueTime != null" >
+        overdueTime = #{record.overdueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.creatBy != null" >
+        creatBy = #{record.creatBy,jdbcType=BIGINT},
+      </if>
+      <if test="record.creattime != null" >
+        creattime = #{record.creattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gitName != null" >
+        gitName = #{record.gitName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=BIGINT},
+      </if>
+      <if test="record.giftBizCode != null" >
+        giftBizCode = #{record.giftBizCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_gift
+    set id = #{record.id,jdbcType=BIGINT},
+      userId = #{record.userId,jdbcType=BIGINT},
+      platformCode = #{record.platformCode,jdbcType=BIGINT},
+      userName = #{record.userName,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      srcBizId = #{record.srcBizId,jdbcType=BIGINT},
+      srcBizName = #{record.srcBizName,jdbcType=VARCHAR},
+      overdueTime = #{record.overdueTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      creatBy = #{record.creatBy,jdbcType=BIGINT},
+      creattime = #{record.creattime,jdbcType=TIMESTAMP},
+      gitName = #{record.gitName,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=BIGINT},
+      giftBizCode = #{record.giftBizCode,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jumore.b2b.activity.model.UserGift" >
+    update user_gift
+    <set >
+      <if test="userId != null" >
+        userId = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="platformCode != null" >
+        platformCode = #{platformCode,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        userName = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="srcBizId != null" >
+        srcBizId = #{srcBizId,jdbcType=BIGINT},
+      </if>
+      <if test="srcBizName != null" >
+        srcBizName = #{srcBizName,jdbcType=VARCHAR},
+      </if>
+      <if test="overdueTime != null" >
+        overdueTime = #{overdueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="creatBy != null" >
+        creatBy = #{creatBy,jdbcType=BIGINT},
+      </if>
+      <if test="creattime != null" >
+        creattime = #{creattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gitName != null" >
+        gitName = #{gitName,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=BIGINT},
+      </if>
+      <if test="giftBizCode != null" >
+        giftBizCode = #{giftBizCode,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jumore.b2b.activity.model.UserGift" >
+    update user_gift
+    set userId = #{userId,jdbcType=BIGINT},
+      platformCode = #{platformCode,jdbcType=BIGINT},
+      userName = #{userName,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      srcBizId = #{srcBizId,jdbcType=BIGINT},
+      srcBizName = #{srcBizName,jdbcType=VARCHAR},
+      overdueTime = #{overdueTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      creatBy = #{creatBy,jdbcType=BIGINT},
+      creattime = #{creattime,jdbcType=TIMESTAMP},
+      gitName = #{gitName,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=BIGINT},
+      giftBizCode = #{giftBizCode,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

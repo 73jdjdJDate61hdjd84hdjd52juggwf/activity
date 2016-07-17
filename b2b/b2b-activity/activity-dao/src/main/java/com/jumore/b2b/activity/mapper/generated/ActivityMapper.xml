@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumore.b2b.activity.mapper.ActivityMapper" >
+  <resultMap id="BaseResultMap" type="com.jumore.b2b.activity.model.Activity" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="creatBy" property="creatBy" jdbcType="BIGINT" />
+    <result column="platformCode" property="platformCode" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="theme" property="theme" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="beginTime" property="beginTime" jdbcType="TIMESTAMP" />
+    <result column="endTime" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="weight" property="weight" jdbcType="BIGINT" />
+    <result column="giftId" property="giftId" jdbcType="BIGINT" />
+    <result column="giftName" property="giftName" jdbcType="VARCHAR" />
+    <result column="creatTime" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, creatBy, platformCode, name, theme, content, status, beginTime, endTime, weight, 
+    giftId, giftName, creatTime, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jumore.b2b.activity.model.ActivityQueryHelper" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from activity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from activity
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jumore.b2b.activity.model.ActivityQueryHelper" >
+    delete from activity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jumore.b2b.activity.model.Activity" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into activity (id, creatBy, platformCode, 
+      name, theme, content, 
+      status, beginTime, endTime, 
+      weight, giftId, giftName, 
+      creatTime, remark)
+    values (#{id,jdbcType=BIGINT}, #{creatBy,jdbcType=BIGINT}, #{platformCode,jdbcType=BIGINT}, 
+      #{name,jdbcType=VARCHAR}, #{theme,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{weight,jdbcType=BIGINT}, #{giftId,jdbcType=BIGINT}, #{giftName,jdbcType=VARCHAR}, 
+      #{creatTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jumore.b2b.activity.model.Activity" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      <if test="creatBy != null" >
+        creatBy,
+      </if>
+      <if test="platformCode != null" >
+        platformCode,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="theme != null" >
+        theme,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="beginTime != null" >
+        beginTime,
+      </if>
+      <if test="endTime != null" >
+        endTime,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="giftId != null" >
+        giftId,
+      </if>
+      <if test="giftName != null" >
+        giftName,
+      </if>
+      <if test="creatTime != null" >
+        creatTime,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id,jdbcType=BIGINT},
+      <if test="creatBy != null" >
+        #{creatBy,jdbcType=BIGINT},
+      </if>
+      <if test="platformCode != null" >
+        #{platformCode,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="theme != null" >
+        #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=BIGINT},
+      </if>
+      <if test="giftId != null" >
+        #{giftId,jdbcType=BIGINT},
+      </if>
+      <if test="giftName != null" >
+        #{giftName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jumore.b2b.activity.model.ActivityQueryHelper" resultType="java.lang.Integer" >
+    select count(*) from activity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update activity
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.creatBy != null" >
+        creatBy = #{record.creatBy,jdbcType=BIGINT},
+      </if>
+      <if test="record.platformCode != null" >
+        platformCode = #{record.platformCode,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.theme != null" >
+        theme = #{record.theme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.beginTime != null" >
+        beginTime = #{record.beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        endTime = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.weight != null" >
+        weight = #{record.weight,jdbcType=BIGINT},
+      </if>
+      <if test="record.giftId != null" >
+        giftId = #{record.giftId,jdbcType=BIGINT},
+      </if>
+      <if test="record.giftName != null" >
+        giftName = #{record.giftName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creatTime != null" >
+        creatTime = #{record.creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update activity
+    set id = #{record.id,jdbcType=BIGINT},
+      creatBy = #{record.creatBy,jdbcType=BIGINT},
+      platformCode = #{record.platformCode,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      theme = #{record.theme,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      beginTime = #{record.beginTime,jdbcType=TIMESTAMP},
+      endTime = #{record.endTime,jdbcType=TIMESTAMP},
+      weight = #{record.weight,jdbcType=BIGINT},
+      giftId = #{record.giftId,jdbcType=BIGINT},
+      giftName = #{record.giftName,jdbcType=VARCHAR},
+      creatTime = #{record.creatTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jumore.b2b.activity.model.Activity" >
+    update activity
+    <set >
+      <if test="creatBy != null" >
+        creatBy = #{creatBy,jdbcType=BIGINT},
+      </if>
+      <if test="platformCode != null" >
+        platformCode = #{platformCode,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="theme != null" >
+        theme = #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null" >
+        beginTime = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        endTime = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=BIGINT},
+      </if>
+      <if test="giftId != null" >
+        giftId = #{giftId,jdbcType=BIGINT},
+      </if>
+      <if test="giftName != null" >
+        giftName = #{giftName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creatTime = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jumore.b2b.activity.model.Activity" >
+    update activity
+    set creatBy = #{creatBy,jdbcType=BIGINT},
+      platformCode = #{platformCode,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      theme = #{theme,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      beginTime = #{beginTime,jdbcType=TIMESTAMP},
+      endTime = #{endTime,jdbcType=TIMESTAMP},
+      weight = #{weight,jdbcType=BIGINT},
+      giftId = #{giftId,jdbcType=BIGINT},
+      giftName = #{giftName,jdbcType=VARCHAR},
+      creatTime = #{creatTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
