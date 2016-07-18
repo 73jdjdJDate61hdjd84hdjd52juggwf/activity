@@ -23,6 +23,7 @@
 		<module>activity-core</module>
 		<module>activity-comm</module>
     	<module>activity-report</module>
+    <module>activity-mq</module>
   </modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

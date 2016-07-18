@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.jumore.b2b.activity.model.giftAttr;
+import com.jumore.b2b.activity.model.GiftAttr;
 
 /**
  * 公共的
@@ -23,7 +23,7 @@ public class CommonController {
 	@RequestMapping(value = "/test")
 	public String test(Model model) {
 		
-		model.addAttribute(new giftAttr());
+		model.addAttribute(new GiftAttr());
 		return "/interface";
 	};
 }
