@@ -21,9 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.jumore.b2b.activity.admin.base.BaseController;
-import com.jumore.b2b.activity.comm.Pages;
+import com.jumore.b2b.activity.comm.page.BaseModel;
 import com.jumore.b2b.activity.service.business.api.IGiftFront;
 import com.jumore.b2b.activity.service.business.io.request.GiftReq;
+import com.jumore.b2b.activity.service.business.io.response.GiftRes;
 
 @Controller
 @RequestMapping(value="/gift")
@@ -39,12 +40,15 @@ public class GiftController extends BaseController {
     }
 
     @RequestMapping(value = "/doBrowser")
-    public String doBrowser(Model model, GiftReq gift, @RequestParam(value = "page", required = false) int page, int rows) {
-        page = page <= 1 ? 0 : page - 1;
-        rows = rows <= 0 ? 10 : rows;
-        page *= rows;
-        rows += page;
-        Pages<?> pages = giftFront.browser(gift, page, rows);
+    public String doBrowser(Model model, GiftReq gift, 
+    		@RequestParam(value = "start", required = false,defaultValue="0") Integer start,
+    		@RequestParam(value = "limit", required = false,defaultValue="10") Integer limit) {
+       
+        //Pages<?> pages = giftFront.browser(gift, page, rows);
+        
+        BaseModel<GiftReq, GiftRes>pages =new BaseModel<GiftReq, GiftRes>(start, limit, gift);
+        giftFront.browser(pages);
+        
         model.addAttribute("total", pages.getTotal());
         model.addAttribute("rows", pages.getRows());
         return "/gift/browser";

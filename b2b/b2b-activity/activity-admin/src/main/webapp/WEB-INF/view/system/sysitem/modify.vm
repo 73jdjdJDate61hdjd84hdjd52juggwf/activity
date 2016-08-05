@@ -1,0 +1,143 @@
+</html>
+#parse( 'global/header.vm' )
+<style type="text/css">
+		input,textarea{
+			width:200px;
+			border:1px solid #ccc;
+			padding:2px;
+		}
+</style>
+<script type="text/javascript">
+$(function(){
+var v= $("#hidstatus").val();
+$('#status').combobox('setValue',v);
+		$('#save').click(function(){
+			//$('#sysItemFrm').form('submit');
+			//alert(12345);
+			submit();
+		});
+		$('#clear').click(function(){
+			$('#sysItemFrm')[0].reset();
+		});
+});
+
+function submit(){
+		var aj = $.ajax( {
+				url : '$request.contextPath/system/sysItem/doModify.json',// 跳转到 action     
+				data : {
+				parentId:$('#parentId').val(),
+				ladder:$('#ladder').val(),
+				id:$('#id').val(),
+				itemCode:$('#itemCode').val(),
+				itemComments:$('#itemComments').val(),
+				status:$('#status').combobox('getValue'),
+				keyCode:$('#keyCode').val(),
+				keyValue:$('#keyValue').val(),
+				sort:$('#sort').val(),
+				rebark:$('#rebark').val()
+				},
+				type : 'post',
+				dataType:'json',
+				success : function(data) {
+				 if (data.id>=0){
+				 	$.messager.alert('提示','修改成功!','info');
+				 }else{
+					$.messager.alert('提示','修改失败!','info');
+				 }
+				},
+				error : function() {
+					//$.messager.alert('提示','修改成功!','info');
+				}
+			});
+		}
+</script>
+<body >
+	#parse('global/gobackbar.vm' )
+	<div region="center" class="easyui-panel" title="修改" tools="#gobackbar" style="width:500px;margin:0px auto;">
+	<form id="sysItemFrm" method="post" action="doModify" >
+	<input type="hidden" id="parentId" name="parentId" value="$!{sysItem.parentId}" class="easyui-numberbox"  required='true' validType='length[1,18]'   maxLength='18'/>
+	<input type="hidden" id="ladder" name="ladder" value="$!{sysItem.ladder}" class="easyui-numberbox"  required='true' validType='length[1,1]'   maxLength='1'/>
+	
+	<table>
+		 							
+				<input id="id" name="id" type="hidden" value="$!{sysItem.id}"/>
+					  			    			    			    																	
+				<tr>
+    				<td>选项名称:</td>
+        			<td>
+        				<input type="text" id="opionCode" name="opionCode" value="$!{sysItem.itemCode}" class="easyui-validatebox"  required='true' validType='length[1,16]'   maxLength=16/>
+        			</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>选项描述:</td>
+        			<td>
+        				<input type="text" id="opionComments" name="opionComments" value="$!{sysItem.itemComments}" class="easyui-validatebox"   validType='length[0,32]'   maxLength=32/>
+        			</td>
+    			</tr>
+					  		<input type="hidden" id="hidstatus" name="hidstatus" value="$!{sysItem.status}" />	    			    				    			    																	
+				<tr>
+    				<td>状态:</td>
+        			<td>
+        			<select id="status" name="status"   class="easyui-combobox" style="width:200px;" required='true'   maxLength=1 >
+        			<option value="0">正常</option>
+        			<option value="1">注销</option>
+        			</select>
+        			</td>
+    			</tr>
+				#if ($sysItem.ladder==3) 		  			    			    			    																	
+				<tr>
+    				<td>编码:</td>
+        			<td>
+        				<input type="text" id="keyCode" name="keyCode" value="$!{sysItem.keyCode}" class="easyui-validatebox"   validType='length[0,16]'   maxLength=16/>
+        			</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>值:</td>
+        			<td>
+        				<input type="text" id="keyValue" name="keyValue" value="$!{sysItem.keyValue}" class="easyui-validatebox"   validType='length[0,32]'   maxLength=32/>
+        			</td>
+    			</tr>
+				#end   	  			    			    				    			    																	
+				<tr>
+    				<td>排序:</td>
+        			<td>
+        				<input type="text" id="sort" name="sort" value="$!{sysItem.sort}" class="easyui-numberbox"   validType='length[0,3]'   maxLength='3'/>
+        			</td>
+    			</tr>
+					  			    			    				    			    																	
+				<tr>
+        			<td>
+        				<input type="hidden" id="createBy" name="createBy" value="$!{sysItem.createBy}" class="easyui-validatebox"   validType='length[0,18]'   maxLength='18'/>
+        			</td>
+    			</tr>
+					  			    			    			    																	
+				
+        				<input type="hidden" id="createTime" name="createTime" value="$!{sysItem.createTime}" />
+        			
+					  			    			    			    																	
+				<tr>
+    				<td>备注:</td>
+        			<td>
+        				<input type="textArea" id="rebark" name="rebark" value="$!{sysItem.rebark}" class="easyui-validatebox"   validType='length[0,1024]'   maxLength=1024/>
+        			</td>
+    			</tr>
+					  	</table>
+	</form>
+	    <div style="text-align:center;padding:5px">
+	    	<a href="javascript:void(0)" id="save" class="easyui-linkbutton" >提交</a>
+	    	<a href="javascript:void(0)" id="clear" class="easyui-linkbutton"  >重置</a>
+	    </div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+		//返回
+		$('#goback').click(function(){
+			location.href="browser";
+		});
+});
+</script>
+

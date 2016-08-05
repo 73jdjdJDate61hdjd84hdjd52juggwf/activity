@@ -1,0 +1,56 @@
+<div class="tab-pane active" id="softinfo_confg">
+	<table class="table table-hover table-striped table-bordered">
+
+									<tbody><tr>
+
+										<td>Responsive</td>
+
+										<td><a class="btn blue" data-toggle="modal" href="#responsive">View Demo</a></td>
+
+									</tr>
+
+									<tr>
+
+										<td>Stackable</td>
+
+										<td><a class=" btn green" data-toggle="modal" href="#stack1">View Demo</a></td>
+
+									</tr>
+
+									<tr>
+
+										<td>AJAX (via jQuery.load)</td>
+
+										<td><a class=" btn red" id="modal_ajax_demo_btn" data-toggle="modal">View Demo</a></td>
+
+									</tr>
+
+									<tr>
+
+										<td>Static Background with Animation</td>
+
+										<td><a class=" btn yellow" data-toggle="modal" href="#static">View Demo</a></td>
+
+									</tr>
+
+									<tr>
+
+										<td>Full Width</td>
+
+										<td><a class=" btn purple btn-large" data-toggle="modal" href="#full-width">View Demo</a></td>
+
+									</tr>
+
+									<tr>
+
+										<td>Long Modals</td>
+
+										<td><a class=" btn blue btn-large" data-toggle="modal" href="#long">View Demo</a></td>
+
+									</tr>
+
+								</tbody></table>
+	<p>
+		<a class="btn green" href="ui_tabs_accordions.html#tab_3_3" target="_blank">Activate this tab via URL</a>
+	</p>
+</div>

@@ -1,0 +1,195 @@
+</html>
+#parse( 'global/header.vm' )
+<style type="text/css">
+		input,textarea{
+			width:200px;
+			border:1px solid #ccc;
+			padding:2px;
+		}
+</style>
+<script type="text/javascript">
+</script>
+<body >
+	 #parse('global/gobackbar.vm' )
+	<div region="center" class="easyui-panel" title="修改" tools="#gobackbar" style="width:700px;margin:0px auto;">
+	<form id="ctWorkScriptFrm" method="post" action="doModify" >
+	<table>
+		 		 <input id="id" name="id" type="hidden" value="$!{ctWorkScript.id}"/>
+					  			    			    				    			    																	
+					  			    			    				    			    																	
+				<tr>
+    				<td>数据源ID:</td>
+        			<td>
+											<input type="text" id="dataSourceId" name="dataSourceId" value="$!{ctWorkScript.dataSourceId}" class="easyui-numberbox"  required='true' validType='length[1,2]'   maxLength='2'/>
+  					
+					</td>
+    			</tr>
+				<tr>
+    				<td>脚本名称:</td>
+        			<td>
+											<textarea id="scriptName" name="scriptName" onpropertychange= "this.style.posHeight=this.scrollHeight ">$!{ctWorkScript.scriptName}</textarea>
+					
+					</td>
+    			</tr>	  			    			    			    																	
+				<tr>
+    				<td>脚本内容:</td>
+        			<td>
+											<textarea id="content" name="content" onpropertychange= "this.style.posHeight=this.scrollHeight ">$!{ctWorkScript.content}</textarea>
+					
+					</td>
+    			</tr>
+					  			    			    				    			    																	
+				<tr>
+    				<td>类型:</td>
+        			<td>
+											<input type="text" id="type" name="type" value="$!{ctWorkScript.type}" class="easyui-numberbox"  required='true' validType='length[1,2]'   maxLength='2'/>
+  					
+					</td>
+    			</tr>
+					  			    			    				    			    																	
+				<tr>
+    				<td>返回类型:</td>
+        			<td>
+											<input type="text" id="resultType" name="resultType" value="$!{ctWorkScript.resultType}" class="easyui-numberbox"  required='true' validType='length[1,2]'   maxLength='2'/>
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>返回值:</td>
+        			<td>
+											<textarea id="returnValueValue" name="returnValueValue" onpropertychange= "this.style.posHeight=this.scrollHeight ">$!{ctWorkScript.returnValueValue}</textarea>
+					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>返回值描述:</td>
+        			<td>
+											<textarea id="returnValueDesc" name="returnValueDesc" onpropertychange= "this.style.posHeight=this.scrollHeight ">$!{ctWorkScript.returnValueDesc}</textarea>
+					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>宏:</td>
+        			<td>
+											<textarea id="micro" name="micro" onpropertychange= "this.style.posHeight=this.scrollHeight ">$!{ctWorkScript.micro}</textarea>
+					
+					</td>
+    			</tr>
+					  			    			    				    			    																	
+				<tr>
+    				<td>状态:</td>
+        			<td>
+						 	<input type="text" id="status" name="status" value="$!{ctWorkScript.type}" class="easyui-numberbox"  required='true' validType='length[1,2]'   maxLength='2'/>
+  					
+					</td>
+    			</tr>
+					  			    			    				    			    																	
+				<tr>
+    				<td>执行顺序:</td>
+        			<td>
+											<input type="text" id="sqrt" name="sqrt" value="$!{ctWorkScript.sqrt}" class="easyui-numberbox"  required='true' validType='length[1,2]'   maxLength='2'/>
+  					
+					</td>
+    			</tr>
+					  			    			    				    			    																	
+				
+					  			    			    			    																	
+				<tr>
+    				<td>备注:</td>
+        			<td>
+											<textarea id="remark" name="remark" onpropertychange= "this.style.posHeight=this.scrollHeight ">$!{ctWorkScript.remark}</textarea>
+					
+					</td>
+    			</tr>
+					  	
+	</table>
+	</form>
+	    <div style="text-align:center;padding:5px">
+	    	<a href="javascript:void(0)" id="save" class="easyui-linkbutton" >Submit</a>
+	    	<a href="javascript:void(0)" id="clear" class="easyui-linkbutton"  >Clear</a>
+	    </div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+		/********select 选项表**********/
+																						
+		$('#type').combobox({
+			data:${sof.getKeyRange("CTWORKSCRIPT","TYPE")},
+            valueField:'id',
+            textField:'text'
+		});
+						
+		$('#resultType').combobox({
+			data:${sof.getKeyRange("CTWORKSCRIPT","RESULTTYPE")},
+            valueField:'id',
+            textField:'text'
+		});
+		
+		$('#status').combobox({
+			data:${sof.getKeyRange("CTWORKSCRIPT","STATUS")},
+            valueField:'id',
+            textField:'text'
+		});
+		
+																																												 
+		/*********select**************/
+		$('#save').click(function(){
+			var flag = true;
+		 $('#ctWorkScriptFrm').each(function () {
+    		if ($(this).attr('required') || $(this).attr('validType')) {
+    			if (!$(this).validatebox('isValid')) {
+        			flag = false;
+        			return;
+   		 		}
+    		}
+		})
+		if (flag){
+		var _data={
+					id:$('#id').val() , 
+					homeworkId:$!{ctWorkScript.homeworkId} , 
+					dataSourceId:$('#dataSourceId').val() , 
+					scriptName:$('#scriptName').val() , 
+					content:$('#content').val() , 
+					type:$('#type').combobox('getValue') , 
+					resultType:$('#resultType').combobox('getValue') , 
+					returnValueValue:$('#returnValueValue').val() , 
+					returnValueDesc:$('#returnValueDesc').val() , 
+					micro:$('#micro').val() , 
+					status:$('#status').combobox('getValue') , 
+					sqrt:$('#sqrt').val() , 
+					remark:$('#remark').val()  
+				};
+		var aj = $.ajax( {
+				url : '$request.contextPath/chtcktools/ctWorkScript/doModify.json',// 跳转到 action     
+				data : _data,
+				type : 'post',
+				dataType:'text',
+				success : function(data) {
+				 if (data.id!=0){
+				 	$.messager.alert('提示','修改成功!','info');
+				 }else{
+					$.messager.alert('提示','修改失败!','info');
+				 }
+				},
+				error : function() {
+					$.messager.alert('提示','修改失败!','info');
+				}
+			});
+		}
+			
+		});
+		$('#clear').click(function(){
+			$('#ctWorkScriptFrm')[0].reset();
+		});
+		//返回
+		$('#goback').click(function(){
+			location.href="browser?homeworkId=${ctWorkScript.homeworkId}";
+		});
+});
+</script>
+

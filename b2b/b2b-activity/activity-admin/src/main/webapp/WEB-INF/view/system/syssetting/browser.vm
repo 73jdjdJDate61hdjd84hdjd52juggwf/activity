@@ -1,0 +1,54 @@
+#parse( 'global/header.vm' )
+#parse( 'global/header_bootstrap_css.vm' )
+
+<script type="text/javascript" src='$static_path/js/system/syssetting/browser.js'></script>
+<body>
+	
+	<div class="portlet box green">
+			<div class="portlet-title">
+				<div class="caption"><i class="icon-reorder"></i>系统配置</div>
+				<div class="tools">
+					<a href="javascript:;" class="collapse"></a>
+					<a href="#portlet-config" data-toggle="modal" class="config"></a>
+				</div>
+			</div>
+							
+			<div class="portlet-body" style="height:100%">
+				<div class="row-fluid">
+					<div class="span6" style="width:100%;height:100%">
+						<!--BEGIN TABS-->
+						<div class="tabbable tabbable-custom tabs-left">
+							<!-- Only required for left/right tabs -->
+							<ul class="nav nav-tabs tabs-left">
+								<li class="active">
+									<a href="#softinfo_config" data-toggle="tab">软件信息</a>
+								</li>
+								<li>
+									<a href="#constant_config" data-toggle="tab">系统常量</a>
+								</li>
+								<li>
+									<a href="#memcache_config" data-toggle="tab">系统缓存</a>
+								</li>
+							</ul>
+							<div class="tab-content">
+								#parse('system/syssetting/softinfo_config.vm' )
+							    #parse('system/syssetting/constant_config.vm' )
+							    #parse('system/syssetting/memcache_config.vm' )
+								
+							</div>
+
+						</div>
+						<!--END TABS-->
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+</body>
+</html>
+#parse( 'global/header_bootstrap_js.vm' )
+
+

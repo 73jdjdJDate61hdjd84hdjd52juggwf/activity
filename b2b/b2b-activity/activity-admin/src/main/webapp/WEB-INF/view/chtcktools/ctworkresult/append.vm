@@ -1,0 +1,216 @@
+</html>
+  #parse( 'global/header.vm' )
+<style type="text/css">
+		input,textarea{
+			width:400px;
+			border:1px solid #ccc;
+			padding:2px;
+		}
+</style>
+<script type="text/javascript">
+</script>
+<body >
+	#parse('global/gobackbar.vm' )
+	<div region="center" class="easyui-panel" title="添加" tools="#gobackbar"style="width:500px;margin:0px auto;">
+	<form id="ctWorkResultFrm" method="post">
+	<table>
+		 			    			    			    							
+				<tr>
+    				<td>脚本内容:</td>
+        			<td>
+										<textarea id="scriptContent" name="scriptContent"  class="comments" onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>脚本类型:</td>
+        			<td>
+										<input id="scriptType" name="scriptType" value="" class="easyui-validatebox"      maxLength=20/>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    							
+				<tr>
+    				<td>计数总条数:</td>
+        			<td>
+										<input id="returnCount" name="returnCount" value="" class="easyui-numberbox"    precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>错误描述:</td>
+        			<td>
+										<textarea id="message" name="message"  class="comments" onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>执行返回编码:</td>
+        			<td>
+					<select id="code" class="easyui-combobox" name="code" style="width:200px;"  editable=false></select>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    							
+				<tr>
+    				<td>执行方式:</td>
+        			<td>
+					<select id="runWay" class="easyui-combobox" name="runWay" style="width:200px;"  editable=false></select>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>下次执行时间:</td>
+        			<td>
+										<input id="nextRunTime" name="nextRunTime" value="" class="easyui-datetimebox"      maxLength=7/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>上次执行时间:</td>
+        			<td>
+										<input id="lastRunTime" name="lastRunTime" value="" class="easyui-datetimebox"      maxLength=7/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>执行结果文件:</td>
+        			<td>
+										<textarea id="resultList" name="resultList"  class="comments" onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>执行返回值:</td>
+        			<td>
+										<input id="resultCount" name="resultCount" value="" class="easyui-validatebox"      maxLength=20/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>备注:</td>
+        			<td>
+										<textarea id="remark" name="remark"  class="comments" onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea>
+					
+					</td>
+    			</tr>
+					  					  			    			    				    				    			    							
+				<tr>
+    				<td>批次号:</td>
+        			<td>
+										<input id="batchNo" name="batchNo" value="" class="easyui-numberbox"    precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    											
+				<tr>
+    				<td>作业ID:</td>
+        			<td>
+										<input id="homeworkId" name="homeworkId" value="" class="easyui-numberbox"  required='true' validType='length[1,22]' precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>作业名称:</td>
+        			<td>
+										<input id="homeworkName" name="homeworkName" value="" class="easyui-validatebox"      maxLength=32/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>脚本名称:</td>
+        			<td>
+										<input id="scriptName" name="scriptName" value="" class="easyui-validatebox"      maxLength=32/>
+					
+					</td>
+    			</tr>
+					  	
+	</table>
+	</form>
+	    <div style="text-align:center;padding:5px">
+	    	<a href="javascript:void(0)" id="append" class="easyui-linkbutton" >Submit</a>
+	    	<a href="javascript:void(0)" id="clear" class="easyui-linkbutton"  >Clear</a>
+	    </div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+		/********select 选项表**********/
+																						
+		$('#code').combobox({
+			data:${sof.getKeyRange("CTWORKRESULT","CODE")},
+            valueField:'id',
+            textField:'text'
+		});
+						
+		$('#runWay').combobox({
+			data:${sof.getKeyRange("CTWORKRESULT","RUNWAY")},
+            valueField:'id',
+            textField:'text'
+		});
+																																												 
+		/*********select**************/
+		//提交
+		$('#append').click(function(){
+		    var _data={
+																				scriptContent:$('#scriptContent').val() , 
+        		        																		scriptType:$('#scriptType').val() , 
+        		        																		returnCount:$('#returnCount').val() , 
+        		        																		message:$('#message').val() , 
+        		        																		code:$('#code').combobox('getValue') , 
+        		        																		runWay:$('#runWay').combobox('getValue') , 
+        		        																		nextRunTime:$('#nextRunTime').datetimebox('getValue') , 
+        		        																		lastRunTime:$('#lastRunTime').datetimebox('getValue') , 
+        		        																		resultList:$('#resultList').val() , 
+        		        																		resultCount:$('#resultCount').val() , 
+        		        																		remark:$('#remark').val() , 
+        		        						        																		batchNo:$('#batchNo').val() , 
+        		        																		homeworkId:$('#homeworkId').val() , 
+        		        																		homeworkName:$('#homeworkName').val() , 
+        		        																		scriptName:$('#scriptName').val()  
+        		        						};
+			var aj = $.ajax( {
+        		url : '$request.contextPath/ctWorkResult/doAppend.json',// 跳转到 action     
+        		data : _data,
+        		type : 'post',
+        		dataType:'text',
+        		success : function(data) {
+                    if (data.code!=0){
+                     	$.messager.alert('提示','添加成功!','info');
+                    	$("#ctWorkResult",parent.document.body).attr("src","$request.contextPath/ctWorkResult/browser");
+                    }else{
+                    	$.messager.alert('提示','添加失败!','info');
+                    }
+        		},
+        		error : function() {
+        			//$.messager.alert('提示','添加成功!','info');
+        		}
+			});
+		});
+		//重置
+		$('#clear').click(function(){
+			$('#ctWorkResultFrm')[0].reset();
+		});
+		//clear
+		$('#clear').click(function(){
+			$('#ctWorkResultFrm')[0].reset();
+		});
+		//返回
+		$('#goback').click(function(){
+			location.href="browser";
+		});
+});
+</script>
+
+

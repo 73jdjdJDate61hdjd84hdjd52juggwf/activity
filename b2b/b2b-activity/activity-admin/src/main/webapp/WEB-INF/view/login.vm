@@ -1,0 +1,80 @@
+#parse( 'global/header.vm' )
+<script type="text/javascript" src="$static_path/global/login.js"></script>
+<script type="text/javascript">
+ 
+
+ function changeImg() {
+  var imgSrc = $("#imgObj");
+  var src = imgSrc.attr("src");
+  imgSrc.attr("src", chgUrl(src));
+ }
+ //时间戳  
+ //为了使每次生成图片不一致，即不让浏览器读缓存，所以需要加上时间戳  
+ function chgUrl(url) {
+  var timestamp = (new Date()).valueOf();
+  url = url.substring(0, 26);
+  if ((url.indexOf("&") >= 0)) {
+   url = url + "×tamp=" + timestamp;
+  } else {
+   url = url + "?timestamp=" + timestamp;
+  }
+  return url;
+ }
+
+</script>
+<title>用户登录</title>
+<body>
+<div style="margin-left:450px;margin-top:150px;">
+	<div region="center" class="easyui-panel" title="demo" style="width:400px;">
+		<div style="padding:10px 0 5px 90px">
+	    <form id="loginFrm" method="post"  action="$request.contextPath/admin/doLogin">
+	    	<table >
+	    		<tr>
+	    			<td>账户:</td>
+	    			<td><input class="easyui-validatebox" type="text" name="name" value="admin" data-options="required:true"></input></td>
+	    		</tr>
+	    		<tr>
+	    			<td>密码:</td>
+	    			<td><input class="easyui-validatebox" type="password" name="pwd" value="12345" data-options="required:true"></input></td>
+	    		</tr>
+	    		<tr>
+	    			<td>验证码:</td>
+	    			<td><input class="easyui-validatebox" type="text"  name="authCode" value="byt" data-options="required:true" maxLength=4></input></td>
+	    		</tr>
+	    		<tr>
+	    			 <td></td>
+	    			<td> <img id="imgObj" alt="验证码" src="$request.contextPath/code" /> 
+      				  <a href="#" onclick="changeImg()">看不清楚</a>
+	    		</tr>
+	    		<tr>
+	    			<td></td>
+					<td><span class="login_error_notice">$!message</span></td>
+	    		</tr>
+	    		<tr>
+	    		<td>
+	    		</td>
+	    		<td>
+	    		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>
+	    	    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">重置</a>
+	    		</td>
+	    		</tr>
+	    	</table>
+	    </form>
+	    </div>
+	    <div style="text-align:center;padding-top:-15px">
+	    	
+	    </div>
+	</div>
+	<script>
+		function submitForm(){
+			$('#loginFrm').submit();
+		}
+		function clearForm(){
+			$('#loginFrm').form('clear');
+		}
+	</script>
+</div>
+	
+</body>
+</html>
+

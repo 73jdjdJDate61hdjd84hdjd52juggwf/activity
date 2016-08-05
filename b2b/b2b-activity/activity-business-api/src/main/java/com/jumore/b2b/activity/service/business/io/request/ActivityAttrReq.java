@@ -1,6 +1,6 @@
 package com.jumore.b2b.activity.service.business.io.request;
 
-import java.io.Serializable;
+import com.jumore.b2b.activity.comm.page.IRequest;
 
 /**
  * 活动属性
@@ -8,8 +8,13 @@ import java.io.Serializable;
  * @author 菠萝大象
  * @version 1.0 2016-07-01
  */
-public class ActivityAttrReq implements Serializable {
+public class ActivityAttrReq implements IRequest {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -92774637760234673L;
+
+	/**
      * 序列
      */
     private Long id;
@@ -64,7 +69,6 @@ public class ActivityAttrReq implements Serializable {
      */
     private String remark;
 
-    private static final long serialVersionUID = 1L;
 
     public Long getId() {
         return id;

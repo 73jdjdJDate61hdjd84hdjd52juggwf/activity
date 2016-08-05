@@ -1,0 +1,135 @@
+</html>
+  #parse( 'global/header.vm' )
+<style type="text/css">
+		input,textarea{
+			width:400px;
+			border:1px solid #ccc;
+			padding:2px;
+		}
+</style>
+<script type="text/javascript">
+</script>
+<body >
+	#parse('global/gobackbar.vm' )
+	<div region="center" class="easyui-panel" title="添加" tools="#gobackbar"style="width:500px;margin:0px auto;">
+	<form id="ctHomeworkFrm" method="post">
+	<table>
+		 					  			    			    			    											
+				<tr>
+    				<td>作业编号:</td>
+        			<td>
+										<input id="code" name="code" value="" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>名称:</td>
+        			<td>
+										<input id="name" name="name" value="" class="easyui-validatebox"      maxLength=32/>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    							
+				<tr>
+    				<td>类别:</td>
+        			<td>
+							<select id="category" class="easyui-combobox" name="category" style="width:200px;"  editable=false></select>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    							
+				<tr>
+    				<td>排序:</td>
+        			<td>
+										<input id="sqrt" name="sqrt" value="" class="easyui-numberbox"    precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>状态:</td>
+        			<td>
+										<select id="status" class="easyui-combobox" name="status" style="width:200px;"  editable=false></select>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>备注:</td>
+        			<td>
+										<textarea id="remark" name="remark" class="comments" onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea>
+					
+					</td>
+    			</tr>
+					  	
+	</table>
+	</form>
+	    <div style="text-align:center;padding:5px">
+	    	<a href="javascript:void(0)" id="append" class="easyui-linkbutton" >Submit</a>
+	    	<a href="javascript:void(0)" id="clear" class="easyui-linkbutton"  >Clear</a>
+	    </div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+		/********select 选项表**********/
+																		
+		$('#category').combobox({
+			data:${sof.getKeyRange("CTHOMEWORK","CATEGORY")},
+            valueField:'id',
+            textField:'text'
+		});
+			
+		$('#status').combobox({
+			data:${sof.getKeyRange("CTHOMEWORK","STATUS")},
+            valueField:'id',
+            textField:'text'
+		});
+		
+		/*********select**************/
+		//提交
+		$('#append').click(function(){
+		    var _data={
+						code:$('#code').val() , 
+						name:$('#name').val() , 
+						category:$('#category').combobox('getValue') , 
+						sqrt:$('#sqrt').val(),
+						status:$('#status').combobox('getValue') ,
+						remark:$('#remark').val()  
+        		};
+			var aj = $.ajax( {
+				url : '$request.contextPath/chtcktools/ctHomework/doAppend.json',// 跳转到 action   
+        		data : _data,
+        		type : 'post',
+        		dataType:'text',
+        		success : function(data) {
+                    if (data.code!=0){
+                     	$.messager.alert('提示','添加成功!','info');
+                    	$("#ctHomework",parent.document.body).attr("src","$request.contextPath/chtcktools/ctHomework/browser");
+                    }else{
+                    	$.messager.alert('提示','添加失败!','info');
+                    }
+        		},
+        		error : function() {
+        			//$.messager.alert('提示','添加成功!','info');
+        		}
+			});
+		});
+		//重置
+		$('#clear').click(function(){
+			$('#ctHomeworkFrm')[0].reset();
+		});
+		//clear
+		$('#clear').click(function(){
+			$('#ctHomeworkFrm')[0].reset();
+		});
+		//返回
+		$('#goback').click(function(){
+			location.href="browser";
+		});
+});
+</script>
+
+

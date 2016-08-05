@@ -10,6 +10,11 @@
 				  <a href="$request.contextPath/static/activityRule"＞</a>关于活动规则</br>
 				  <a href="$request.contextPath/static/prot"＞</a>用户注册协议</br>
 				  <a href="$request.contextPath/static/explain"＞</a>活动XX说明(担保金和赴约补贴说明)</br>
+				<hr/>
+				<h5>session在线人数</h5>
+	 		     <a href="$request.contextPath/login"＞</a>登录</br>
+				 <a href="$request.contextPath/home"＞</a>home</br>
+				 <a href="$request.contextPath/main"＞</a>main</br>
 
 
 				</div>

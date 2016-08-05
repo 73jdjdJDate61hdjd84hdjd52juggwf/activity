@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jumore.b2b.activity.comm.Pages;
+import com.jumore.b2b.activity.comm.page.BaseModel;
 import com.jumore.b2b.activity.service.business.io.request.GiftReq;
 import com.jumore.b2b.activity.service.business.io.response.GiftRes;
 
@@ -45,7 +46,11 @@ public interface IGiftFront {
 	 * 查询唯一条记录
 	 */
 	GiftRes selectUnique(GiftReq gift);
-	
-	
+
 	GiftRes select(GiftReq gift);
+
+	/*
+	 * 新的查询方法，查询，条件都放在一个对象里
+	 */
+	void browser(BaseModel<GiftReq, GiftRes> pages);
 }

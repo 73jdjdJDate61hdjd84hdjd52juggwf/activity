@@ -1,0 +1,4 @@
+@CHARSET "UTF-8";
+.selectAuto{
+	behavior:expression(window.select_fix_ie(this));
+}

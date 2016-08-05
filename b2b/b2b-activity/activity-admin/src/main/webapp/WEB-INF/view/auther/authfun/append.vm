@@ -1,0 +1,183 @@
+</html>
+  #parse( 'global/header.vm' )
+<style type="text/css">
+		input,textarea{
+			width:400px;
+			border:1px solid #ccc;
+			padding:2px;
+		}
+</style>
+<script type="text/javascript">
+</script>
+<body >
+	#parse('global/gobackbar.vm' )
+	<div region="center" class="easyui-panel" title="添加" tools="#gobackbar"style="width:500px;margin:0px auto;">
+	<form id="authFunFrm" method="post">
+	<table>
+		 					  			    			    			    											
+				<tr>
+    				<td>编码|要求唯一:</td>
+        			<td>
+					<select id="code" class="easyui-combobox" name="code" style="width:200px;" required='true' editable=false></select>
+					
+					</td>
+    			</tr>
+					  			    			    			    											
+				<tr>
+    				<td>权限名:</td>
+        			<td>
+										<input id="name" name="name" value="" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>权限描述:</td>
+        			<td>
+										<textarea id="desc" name="desc" class="comments" onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea>
+					
+					</td>
+    			</tr>
+					  			    			    			    											
+				<tr>
+    				<td>模块ID:</td>
+        			<td>
+										<input id="modelCode" name="modelCode" value="" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+					
+					</td>
+    			</tr>
+					  			    			    			    											
+				<tr>
+    				<td>URL:</td>
+        			<td>
+										<textarea id="requestUrl" name="requestUrl"  class="comments" onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    							
+				<tr>
+    				<td>排序:</td>
+        			<td>
+										<input id="sort" name="sort" value="" class="easyui-numberbox"    precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    							
+				<tr>
+    				<td>状态:</td>
+        			<td>
+										<input id="status" name="status" value="" class="easyui-numberbox"    precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    							
+				<tr>
+    				<td>创建人:</td>
+        			<td>
+										<input id="appendBy" name="appendBy" value="" class="easyui-numberbox"    precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>创建时间:</td>
+        			<td>
+										<input id="appendTime" name="appendTime" value="" class="easyui-validatebox"      maxLength=11/>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    							
+				<tr>
+    				<td>修改人:</td>
+        			<td>
+										<input id="modifyBy" name="modifyBy" value="" class="easyui-numberbox"    precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>修改时间:</td>
+        			<td>
+										<input id="modifyTime" name="modifyTime" value="" class="easyui-validatebox"      maxLength=11/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>备注:</td>
+        			<td>
+										<textarea id="remark" name="remark"  class="comments" onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea>
+					
+					</td>
+    			</tr>
+					  	
+	</table>
+	</form>
+	    <div style="text-align:center;padding:5px">
+	    	<a href="javascript:void(0)" id="append" class="easyui-linkbutton" >Submit</a>
+	    	<a href="javascript:void(0)" id="clear" class="easyui-linkbutton"  >Clear</a>
+	    </div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+		/********select 选项表**********/
+										
+		$('#code').combobox({
+			data:${sof.getKeyRange("AUTHFUN","CODE")},
+            valueField:'id',
+            textField:'text'
+		});
+																																																 
+		/*********select**************/
+		//提交
+		$('#append').click(function(){
+		    var _data={
+								        																		code:$('#code').combobox('getValue') , 
+        		        																		name:$('#name').val() , 
+        		        																		desc:$('#desc').val() , 
+        		        																		modelCode:$('#modelCode').val() , 
+        		        																		requestUrl:$('#requestUrl').val() , 
+        		        																		sort:$('#sort').val() , 
+        		        																		status:$('#status').val() , 
+        		        																		appendBy:$('#appendBy').val() , 
+        		        																		appendTime:$('#appendTime').val() , 
+        		        																		modifyBy:$('#modifyBy').val() , 
+        		        																		modifyTime:$('#modifyTime').val() , 
+        		        																		remark:$('#remark').val()  
+        		        						};
+			var aj = $.ajax( {
+        		url : '$request.contextPath/authFun/doAppend.json',// 跳转到 action     
+        		data : _data,
+        		type : 'post',
+        		dataType:'text',
+        		success : function(data) {
+                    if (data.code!=0){
+                     	$.messager.alert('提示','添加成功!','info');
+                    	$("#authFun",parent.document.body).attr("src","$request.contextPath/authFun/browser");
+                    }else{
+                    	$.messager.alert('提示','添加失败!','info');
+                    }
+        		},
+        		error : function() {
+        			//$.messager.alert('提示','添加成功!','info');
+        		}
+			});
+		});
+		//重置
+		$('#clear').click(function(){
+			$('#authFunFrm')[0].reset();
+		});
+		//clear
+		$('#clear').click(function(){
+			$('#authFunFrm')[0].reset();
+		});
+		//返回
+		$('#goback').click(function(){
+			location.href="browser";
+		});
+});
+</script>
+
+

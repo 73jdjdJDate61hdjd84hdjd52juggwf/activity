@@ -1,0 +1,105 @@
+</html>
+  #parse( 'global/header.vm' )
+<style type="text/css">
+		input,textarea{
+			width:400px;
+			border:1px solid #ccc;
+			padding:2px;
+		}
+</style>
+<script type="text/javascript">
+</script>
+<body >
+	#parse('global/gobackbar.vm' )
+	<div region="center" class="easyui-panel" title="添加" tools="#gobackbar"style="width:500px;margin:0px auto;">
+	<form id="sysAreaFrm" method="post">
+	<table>
+		 					  			    			    			    							
+				<tr>
+    				<td>代码:</td>
+        			<td>
+										<input id="code" name="code" value="" class="easyui-validatebox"      maxLength=32/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>名称:</td>
+        			<td>
+										<input id="name" name="name" value="" class="easyui-validatebox"      maxLength=32/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>电话区号:</td>
+        			<td>
+										<input id="zipCode" name="zipCode" value="" class="easyui-validatebox"      maxLength=4/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>邮编:</td>
+        			<td>
+										<input id="postCode" name="postCode" value="" class="easyui-validatebox"      maxLength=6/>
+					
+					</td>
+    			</tr>
+					  	
+	</table>
+	</form>
+	    <div style="text-align:center;padding:5px">
+	    	<a href="javascript:void(0)" id="append" class="easyui-linkbutton" >Submit</a>
+	    	<a href="javascript:void(0)" id="clear" class="easyui-linkbutton"  >Clear</a>
+	    </div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+		/********select 选项表**********/
+																								 
+		/*********select**************/
+		//提交
+		$('#append').click(function(){
+		    var _data={
+								        																		code:$('#code').val() , 
+        		        																		name:$('#name').val() , 
+        		        																		zipCode:$('#zipCode').val() , 
+        		        																		postCode:$('#postCode').val()  
+        		        						};
+			var aj = $.ajax( {
+        		url : '$request.contextPath/sysArea/doAppend.json',// 跳转到 action     
+        		data : _data,
+        		type : 'post',
+        		dataType:'text',
+        		success : function(data) {
+                    if (data.code!=0){
+                     	$.messager.alert('提示','添加成功!','info');
+                    	$("#sysArea",parent.document.body).attr("src","$request.contextPath/sysArea/browser");
+                    }else{
+                    	$.messager.alert('提示','添加失败!','info');
+                    }
+        		},
+        		error : function() {
+        			//$.messager.alert('提示','添加成功!','info');
+        		}
+			});
+		});
+		//重置
+		$('#clear').click(function(){
+			$('#sysAreaFrm')[0].reset();
+		});
+		//clear
+		$('#clear').click(function(){
+			$('#sysAreaFrm')[0].reset();
+		});
+		//返回
+		$('#goback').click(function(){
+			location.href="browser";
+		});
+});
+</script>
+
+

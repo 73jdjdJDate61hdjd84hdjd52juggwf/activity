@@ -1,0 +1,12 @@
+#parse( 'global/header.vm' )
+
+	
+<script type="text/javascript" src='$static_path/js/role/rolesys/browser.js?webName=${request.contextPath}&ROLESYS_STATUS_DATA=${sof.getValRange('ROLESYS','STATUS')}'></script>
+<body >
+	<table id="grid" width="350"></table>
+</body>
+</html>
+<script type="text/javascript">
+</script>
+
+

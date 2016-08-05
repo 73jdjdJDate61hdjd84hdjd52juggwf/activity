@@ -1,6 +1,6 @@
 package com.jumore.b2b.activity.service.business.io.response;
 
-import java.io.Serializable;
+import com.jumore.b2b.activity.comm.page.IResponse;
 
 /**
  * 活动属性
@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author 菠萝大象
  * @version 1.0 2016-07-01
  */
-public class ActivityAttrRes implements Serializable {
+public class ActivityAttrRes implements IResponse {
     /**
      * 序列
      */

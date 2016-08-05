@@ -1,0 +1,14 @@
+#parse( 'global/header.vm' )
+
+		
+<script type="text/javascript" src='$static_path/js/chtcktools/ctworkscript/browser.js?homeworkId=$!ctWorkScript.homeworkId&webName=$request.contextPath&CTWORKSCRIPT_TYPE_DATA=${sof.getValRange('CTWORKSCRIPT','TYPE')}&CTWORKSCRIPT_RESULTTYPE_DATA=${sof.getValRange('CTWORKSCRIPT','RESULTTYPE')}&CTWORKSCRIPT_STATUS_DATA=${sof.getValRange('CTWORKSCRIPT','STATUS')}'></script>
+<body>
+	<input type="hidden" name="homeworkId" id="homeworkId" value="$!ctWorkScript.homeworkId">
+	<table id="grid" width="350"></table>
+	
+</body>
+</html>
+<script type="text/javascript">
+</script>
+
+

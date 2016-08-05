@@ -1,0 +1,159 @@
+</html>
+  #parse( 'global/header.vm' )
+<style type="text/css">
+		input,textarea{
+			width:400px;
+			border:1px solid #ccc;
+			padding:2px;
+		}
+</style>
+<script type="text/javascript">
+</script>
+<body >
+	#parse('global/gobackbar.vm' )
+	<div region="center" class="easyui-panel" title="添加" tools="#gobackbar"style="width:500px;margin:0px auto;">
+	<form id="sysOrgFrm" method="post">
+	<table>
+		 					  			    			    				    				    			    											
+				<tr>
+    				<td>添加人:</td>
+        			<td>
+										<input id="appendBy" name="appendBy" value="" class="easyui-numberbox"  required='true' validType='length[1,22]' precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  			    			    			    											
+				<tr>
+    				<td>添加时间:</td>
+        			<td>
+										<input id="appendTime" name="appendTime" value="" class="easyui-datetimebox"  required='true' validType='length[1,7]'   maxLength=7/>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    											
+				<tr>
+    				<td>状态:</td>
+        			<td>
+										<input id="status" name="status" value="" class="easyui-numberbox"  required='true' validType='length[1,22]' precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    							
+				<tr>
+    				<td>修改人:</td>
+        			<td>
+										<input id="modifyBy" name="modifyBy" value="" class="easyui-numberbox"    precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>修改时间:</td>
+        			<td>
+										<input id="modifyTime" name="modifyTime" value="" class="easyui-datetimebox"      maxLength=7/>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    											
+				<tr>
+    				<td>父节点:</td>
+        			<td>
+										<input id="parentId" name="parentId" value="" class="easyui-numberbox"  required='true' validType='length[1,22]' precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  			    			    			    											
+				<tr>
+    				<td>名称:</td>
+        			<td>
+										<input id="name" name="name" value="" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>简称:</td>
+        			<td>
+										<input id="nameEn" name="nameEn" value="" class="easyui-validatebox"      maxLength=16/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>描述:</td>
+        			<td>
+										<textarea id="desc" name="desc" class="comments" onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    											
+				<tr>
+    				<td>阶级:</td>
+        			<td>
+										<input id="ladder" name="ladder" value="" class="easyui-numberbox"  required='true' validType='length[1,22]' precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  	
+	</table>
+	</form>
+	    <div style="text-align:center;padding:5px">
+	    	<a href="javascript:void(0)" id="append" class="easyui-linkbutton" >Submit</a>
+	    	<a href="javascript:void(0)" id="clear" class="easyui-linkbutton"  >Clear</a>
+	    </div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+		/********select 选项表**********/
+																																																 
+		/*********select**************/
+		//提交
+		$('#append').click(function(){
+		    var _data={
+								        																		appendBy:$('#appendBy').val() , 
+        		        																		appendTime:$('#appendTime').datetimebox('getValue') , 
+        		        																		status:$('#status').val() , 
+        		        																		modifyBy:$('#modifyBy').val() , 
+        		        																		modifyTime:$('#modifyTime').datetimebox('getValue') , 
+        		        																		parentId:$('#parentId').val() , 
+        		        																		name:$('#name').val() , 
+        		        																		nameEn:$('#nameEn').val() , 
+        		        																		desc:$('#desc').val() , 
+        		        																		ladder:$('#ladder').val()  
+        		        						};
+			var aj = $.ajax( {
+        		url : '$request.contextPath/sysOrg/doAppend.json',// 跳转到 action     
+        		data : _data,
+        		type : 'post',
+        		dataType:'text',
+        		success : function(data) {
+                    if (data.code!=0){
+                     	$.messager.alert('提示','添加成功!','info');
+                    	$("#sysOrg",parent.document.body).attr("src","$request.contextPath/sysOrg/browser");
+                    }else{
+                    	$.messager.alert('提示','添加失败!','info');
+                    }
+        		},
+        		error : function() {
+        			//$.messager.alert('提示','添加成功!','info');
+        		}
+			});
+		});
+		//重置
+		$('#clear').click(function(){
+			$('#sysOrgFrm')[0].reset();
+		});
+		//clear
+		$('#clear').click(function(){
+			$('#sysOrgFrm')[0].reset();
+		});
+		//返回
+		$('#goback').click(function(){
+			location.href="browser";
+		});
+});
+</script>
+
+

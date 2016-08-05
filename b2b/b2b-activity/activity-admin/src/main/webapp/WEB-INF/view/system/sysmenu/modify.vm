@@ -1,0 +1,157 @@
+</html>
+#parse( 'global/header.vm' )
+<style type="text/css">
+		input,textarea{
+			width:200px;
+			border:1px solid #ccc;
+			padding:2px;
+		}
+</style>
+<script type="text/javascript">
+</script>
+<body >
+	 #parse('global/gobackbar.vm' )
+	<div region="center" class="easyui-panel" title="修改" tools="#gobackbar" style="width:400px;margin:0px auto;">
+	<form id="sysMenuFrm" method="post" action="doModify" >
+	<table>
+		 							<input id="id" name="id" type="hidden" value="$!{sysMenu.id}"/>
+					  			    			    			    																	
+				<tr>
+    				<td>编码:</td>
+        			<td>
+											<input type="text" id="code" name="code" value="$!{sysMenu.code}" class="easyui-validatebox"  required='true' validType='length[1,16]'   maxLength=16/>
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>名称:</td>
+        			<td>
+											<input type="text" id="name" name="name" value="$!{sysMenu.name}" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>英文名称:</td>
+        			<td>
+											<input type="text" id="nameEn" name="nameEn" value="$!{sysMenu.nameEn}" class="easyui-validatebox"   validType='length[0,32]'   maxLength=32/>
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>阶级:</td>
+        			<td>
+											<input type="text" id="ladder" name="ladder" value="$!{sysMenu.ladder}" class="easyui-validatebox"   validType='length[0,1]'   maxLength=1/>
+  					
+					</td>
+    			</tr>
+					  			    			    				    			    																	
+				<tr>
+    				<td>父节点:</td>
+        			<td>
+											<input type="text" id="parentId" name="parentId" value="$!{sysMenu.parentId}" class="easyui-numberbox"   validType='length[0,18]'   maxLength='18'/>
+  					
+					</td>
+    			</tr>
+					  			    			    				    			    																	
+				<tr>
+    				<td>排序:</td>
+        			<td>
+											<input type="text" id="sort" name="sort" value="$!{sysMenu.sort}" class="easyui-numberbox"   validType='length[0,9]'   maxLength='9'/>
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>图标:</td>
+        			<td>
+											<textarea id="pictureId" name="pictureId" onpropertychange= "this.style.posHeight=this.scrollHeight ">$!{sysMenu.pictureId}</textarea>
+					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>url:</td>
+        			<td>
+											<textarea id="url" name="url" onpropertychange= "this.style.posHeight=this.scrollHeight ">$!{sysMenu.url}</textarea>
+					
+					</td>
+    			</tr>
+					  			    			    				    			    																	
+				<tr>
+    				<td>权限ID:</td>
+        			<td>
+											<input type="text" id="authorityId" name="authorityId" value="$!{sysMenu.authorityId}" class="easyui-numberbox"   validType='length[0,18]'   maxLength='18'/>
+  					
+					</td>
+    			</tr>
+					  	
+	</table>
+	</form>
+	    <div style="text-align:center;padding:5px">
+	    	<a href="javascript:void(0)" id="save" class="easyui-linkbutton" >Submit</a>
+	    	<a href="javascript:void(0)" id="clear" class="easyui-linkbutton"  >Clear</a>
+	    </div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+		/********select 选项表**********/
+																																												 
+		/*********select**************/
+		$('#save').click(function(){
+			var flag = true;
+		 $('#sysMenuFrm').each(function () {
+    		if ($(this).attr('required') || $(this).attr('validType')) {
+    			if (!$(this).validatebox('isValid')) {
+        			flag = false;
+        			return;
+   		 		}
+    		}
+		})
+		if (flag){
+		var _data={
+																id:$('#id').val() , 
+        														code:$('#code').val() , 
+        														name:$('#name').val() , 
+        														nameEn:$('#nameEn').val() , 
+        														ladder:$('#ladder').val() , 
+        														parentId:$('#parentId').val() , 
+        														sort:$('#sort').val() , 
+        														pictureId:$('#pictureId').val() , 
+        														url:$('#url').val() , 
+        														authorityId:$('#authorityId').val()  
+        						};
+		var aj = $.ajax( {
+				url : '$request.contextPath/${beanModeName}/sysMenu/doModify.json',// 跳转到 action     
+				data : _data,
+				type : 'post',
+				dataType:'text',
+				success : function(data) {
+				 if (data.id!=0){
+				 	$.messager.alert('提示','修改成功!','info');
+					$("#sysMenu",parent.document.body).attr("src","$request.contextPath/${beanModeName}/sysMenu/browser");
+				 }else{
+					$.messager.alert('提示','修改失败!','info');
+				 }
+				},
+				error : function() {
+					$.messager.alert('提示','修改失败!','info');
+				}
+			});
+		}
+			
+		});
+		$('#clear').click(function(){
+			$('#sysMenuFrm')[0].reset();
+		});
+		//返回
+		$('#goback').click(function(){
+			location.href="browser";
+		});
+});
+</script>
+

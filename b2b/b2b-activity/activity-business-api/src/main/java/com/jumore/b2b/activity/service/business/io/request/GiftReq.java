@@ -1,7 +1,8 @@
 package com.jumore.b2b.activity.service.business.io.request;
 
-import java.io.Serializable;
 import java.util.Date;
+
+import com.jumore.b2b.activity.comm.page.IRequest;
 
 /**
  * 奖励
@@ -9,7 +10,7 @@ import java.util.Date;
  * @author 菠萝大象
  * @version 1.0 2016-07-01
  */
-public class GiftReq implements Serializable {
+public class GiftReq implements IRequest {
     /**
      * 序列@
      */

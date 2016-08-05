@@ -1,0 +1,33 @@
+<html>
+<body>	
+<form method="get" action="$request.contextPath/login/dologin">
+<table border="1" cellspacing="0" cellpadding="3">
+<tr>
+	<td>用户名：</td>
+	<td><input name="enName" id="enName" type="input"></td>
+	<td>$!message</td>
+  
+</tr>
+<tr>
+	<td>密码：</td>
+	<td><input name="password" id="password" type="password" ></td>
+	<td></td>
+  
+</tr>
+<tr>
+	<td>验证码：</td>
+	<td><input name="code" id="code" type="input"></td>
+	<td></td>
+  
+</tr>
+<tr>
+	<td><input value="登  录" id="login" type="submit" ></td>
+	<td><input  type="reset" ></td>
+	<td><a href="#" >忘记密码</a></td>
+  
+</tr>
+</table>
+  </form>
+</body>
+</html>
+

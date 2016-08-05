@@ -1,0 +1,35 @@
+
+                <div title="Home">
+				<div class="cs-home-remark">
+					<h1>在线人数</h1> <br>
+					 <a href="$request.contextPath/logout"＞</a>退出</br>
+					<hr/>
+					<table border="1" cellpadding="6" cellspacing="1" width="100%" align="center" style="background-color: #b9d8f3;">
+                       <thead>  <tr>
+								<td>username </td>
+                                <td>session</td>
+								<td>创建时间</td>
+								<td>与服务器交互时间</td>
+								<td>最大的不活动的间隔时间</td>
+								<td>操作</td>
+							   </tr>	
+					   </thead>
+  
+					   <tbody >
+						
+						 #foreach($key in ${map.keySet()})  
+							  <tr>
+								<td>$!{key}</td>
+								<td>${map.get($key).id}</td>
+								<td>$!{map.get($key).getCreationTime()}</td>
+								<td>$!{map.get($key).getLastAccessedTime()}</td>
+								<td>$!{map.get($key).getMaxInactiveInterval()}</td>
+								<td></td>
+							  </tr>	
+                         #end  
+                       </tbody>
+					
+					</table>
+	
+				</div>
+				</div>

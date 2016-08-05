@@ -1,0 +1,213 @@
+</html>
+  #parse( 'global/header.vm' )
+<style type="text/css">
+		input,textarea{
+			width:400px;
+			border:1px solid #ccc;
+			padding:2px;
+		}
+</style>
+<script type="text/javascript">
+</script>
+<body >
+	#parse('global/gobackbar.vm' )
+	<div region="center" class="easyui-panel" title="添加" tools="#gobackbar"style="width:500px;margin:0px auto;">
+	<form id="sysAdminFrm" method="post">
+	<table>
+		 					  			    			    			    											
+				<tr>
+    				<td>账户名:</td>
+        			<td>
+										<input id="name" name="name" value="" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+					
+					</td>
+    			</tr>
+					  			    			    			    											
+				<tr>
+    				<td>密码:</td>
+        			<td>
+										<input id="pwd" name="pwd" value="" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>是否有效:</td>
+        			<td>
+										<input id="enabled" name="enabled" value="" class="easyui-validatebox"      maxLength=1/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>是否锁定:</td>
+        			<td>
+										<input id="locked" name="locked" value="" class="easyui-validatebox"      maxLength=1/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>锁定时间:</td>
+        			<td>
+										<input id="lockTime" name="lockTime" value="" class="easyui-validatebox"      maxLength=11/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>登录时间:</td>
+        			<td>
+										<input id="loginTime" name="loginTime" value="" class="easyui-validatebox"      maxLength=11/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>手机:</td>
+        			<td>
+										<input id="mobile" name="mobile" value="" class="easyui-validatebox"      maxLength=16/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>电邮:</td>
+        			<td>
+										<input id="email" name="email" value="" class="easyui-validatebox"      maxLength=32/>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    							
+				<tr>
+    				<td>登录错误次数:</td>
+        			<td>
+										<input id="loginFailureCount" name="loginFailureCount" value="" class="easyui-numberbox"    precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    							
+				<tr>
+    				<td>添加人:</td>
+        			<td>
+										<input id="appendBy" name="appendBy" value="" class="easyui-numberbox"    precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    							
+				<tr>
+    				<td>修改人:</td>
+        			<td>
+										<input id="modifyBy" name="modifyBy" value="" class="easyui-numberbox"    precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>添加时间:</td>
+        			<td>
+										<input id="appendTime" name="appendTime" value="" class="easyui-validatebox"      maxLength=11/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>最后修改时间:</td>
+        			<td>
+										<input id="modifyTime" name="modifyTime" value="" class="easyui-validatebox"      maxLength=11/>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>调挤:</td>
+        			<td>
+										<input id="salt" name="salt" value="" class="easyui-validatebox"      maxLength=6/>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    							
+				<tr>
+    				<td>状态:</td>
+        			<td>
+										<input id="status" name="status" value="" class="easyui-numberbox"    precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    							
+				<tr>
+    				<td>头像:</td>
+        			<td>
+										<input id="pictureId" name="pictureId" value="" class="easyui-numberbox"    precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  	
+	</table>
+	</form>
+	    <div style="text-align:center;padding:5px">
+	    	<a href="javascript:void(0)" id="append" class="easyui-linkbutton" >Submit</a>
+	    	<a href="javascript:void(0)" id="clear" class="easyui-linkbutton"  >Clear</a>
+	    </div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+		/********select 选项表**********/
+																																																																								 
+		/*********select**************/
+		//提交
+		$('#append').click(function(){
+		    var _data={
+								        																		name:$('#name').val() , 
+        		        																		pwd:$('#pwd').val() , 
+        		        																		enabled:$('#enabled').val() , 
+        		        																		locked:$('#locked').val() , 
+        		        																		lockTime:$('#lockTime').val() , 
+        		        																		loginTime:$('#loginTime').val() , 
+        		        																		mobile:$('#mobile').val() , 
+        		        																		email:$('#email').val() , 
+        		        																		loginFailureCount:$('#loginFailureCount').val() , 
+        		        																		appendBy:$('#appendBy').val() , 
+        		        																		modifyBy:$('#modifyBy').val() , 
+        		        																		appendTime:$('#appendTime').val() , 
+        		        																		modifyTime:$('#modifyTime').val() , 
+        		        																		salt:$('#salt').val() , 
+        		        																		status:$('#status').val() , 
+        		        																		pictureId:$('#pictureId').val()  
+        		        						};
+			var aj = $.ajax( {
+        		url : '$request.contextPath/sysAdmin/doAppend.json',// 跳转到 action     
+        		data : _data,
+        		type : 'post',
+        		dataType:'text',
+        		success : function(data) {
+                    if (data.code!=0){
+                     	$.messager.alert('提示','添加成功!','info');
+                    	$("#sysAdmin",parent.document.body).attr("src","$request.contextPath/sysAdmin/browser");
+                    }else{
+                    	$.messager.alert('提示','添加失败!','info');
+                    }
+        		},
+        		error : function() {
+        			//$.messager.alert('提示','添加成功!','info');
+        		}
+			});
+		});
+		//重置
+		$('#clear').click(function(){
+			$('#sysAdminFrm')[0].reset();
+		});
+		//clear
+		$('#clear').click(function(){
+			$('#sysAdminFrm')[0].reset();
+		});
+		//返回
+		$('#goback').click(function(){
+			location.href="browser";
+		});
+});
+</script>
+
+

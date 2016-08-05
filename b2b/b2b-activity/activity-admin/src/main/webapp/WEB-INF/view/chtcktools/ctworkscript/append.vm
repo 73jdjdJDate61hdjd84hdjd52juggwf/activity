@@ -1,0 +1,190 @@
+</html>
+  #parse( 'global/header.vm' )
+<style type="text/css">
+		input,textarea{
+			width:400px;
+			border:1px solid #ccc;
+			padding:2px;
+		}
+</style>
+<script type="text/javascript">
+</script>
+<body >
+	#parse('global/gobackbar.vm' )
+	<div region="center" class="easyui-panel" title="添加" tools="#gobackbar"style="width:700px;margin:0px auto;">
+	<form id="ctWorkScriptFrm" method="post">
+	<table>
+		 					  			    			    				    				    			    											
+				<tr>
+    				<td>作业ID:</td>
+        			<td>
+						<input id="homeworkId" name="homeworkId" value="${ctWorkScript.homeworkId}" disabled class="easyui-numberbox"  required='true' validType='length[1,22]' precision=0  maxLength=22/>
+					</td>
+    			</tr>
+					  			    			    				    				    			    											
+				<tr>
+    				<td>数据源ID:</td>
+        			<td>
+										<input id="dataSourceId" name="dataSourceId" value="" class="easyui-numberbox"  required='true' validType='length[1,22]' precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+			    <tr>
+    				<td>脚本名称:</td>
+        			<td>
+										<textarea id="scriptName" name="scriptName" class="comments" onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea>
+					
+					</td>
+    			</tr>			    			    			    											
+				<tr>
+    				<td>脚本内容:</td>
+        			<td>
+										<textarea id="content" name="content"  class="comments" onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    											
+				<tr>
+    				<td>类型:</td>
+        			<td>
+					<select id="type" class="easyui-combobox" name="type" style="width:200px;" required='true' editable=false></select>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    											
+				<tr>
+    				<td>返回类型:</td>
+        			<td>
+					<select id="resultType" class="easyui-combobox" name="resultType" style="width:200px;" required='true' editable=false></select>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>返回值:</td>
+        			<td>
+										<textarea id="returnValueValue" name="returnValueValue"  class="comments" onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>返回值描述:</td>
+        			<td>
+										<textarea id="returnValueDesc" name="returnValueDesc"  class="comments" onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea>
+					
+					</td>
+    			</tr>
+					  			    			    			    							
+				<tr>
+    				<td>宏:</td>
+        			<td>
+										<textarea id="micro" name="micro"  class="comments" onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    											
+				<tr>
+    				<td>状态:</td>
+        			<td>
+					    <select id="status" class="easyui-combobox" name="status" style="width:200px;" required='true' editable=false></select>
+					</td>
+    			</tr>
+					  			    			    				    				    			    											
+				<tr>
+    				<td>执行顺序:</td>
+        			<td>
+										<input id="sqrt" name="sqrt" value="" class="easyui-numberbox"  required='true' validType='length[1,2]' precision=0  maxLength=2 required='true' />
+					
+					</td>
+    			</tr>
+				<tr>
+    				<td>备注:</td>
+        			<td>
+										<textarea id="remark" name="remark"  class="comments" onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea>
+					
+					</td>
+    			</tr>
+					  	
+	</table>
+	</form>
+	    <div style="text-align:center;padding:5px">
+	    	<a href="javascript:void(0)" id="append" class="easyui-linkbutton" >Submit</a>
+	    	<a href="javascript:void(0)" id="clear" class="easyui-linkbutton"  >Clear</a>
+	    </div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+		/********select 选项表**********/
+																						
+		$('#type').combobox({
+			data:${sof.getKeyRange("CTWORKSCRIPT","TYPE")},
+            valueField:'id',
+            textField:'text'
+		});
+						
+		$('#resultType').combobox({
+			data:${sof.getKeyRange("CTWORKSCRIPT","RESULTTYPE")},
+            valueField:'id',
+            textField:'text'
+		});
+		
+		$('#status').combobox({
+			data:${sof.getKeyRange("CTWORKSCRIPT","STATUS")},
+            valueField:'id',
+            textField:'text'
+		});
+		/*********select**************/
+		//提交
+		$('#append').click(function(){
+		alert($('#status').val());
+		    var _data={
+						homeworkId:$('#homeworkId').val() , 
+						dataSourceId:$('#dataSourceId').val() , 
+						scriptName：$('#scriptName').val()
+						content:$('#content').val() , 
+						type:$('#type').combobox('getValue') , 
+						resultType:$('#resultType').combobox('getValue') , 
+						returnValueValue:$('#returnValueValue').val() , 
+						returnValueDesc:$('#returnValueDesc').val() , 
+						micro:$('#micro').val() , 
+						status:$('#status').combobox('getValue') , 
+						sqrt:$('#sqrt').val() , 
+						remark:$('#remark').val()  
+        		};
+			var aj = $.ajax( {
+        		url : '$request.contextPath/chtcktools/ctWorkScript/doAppend.json',// 跳转到 action     
+        		data : _data,
+        		type : 'post',
+        		dataType:'json',
+        		success : function(data) {
+				alert(data);
+                    if (data.code>=0){
+                     	$.messager.alert('提示','添加成功!','info');
+                    }else{
+                    	$.messager.alert('提示','添加失败!'+data.description,'info');
+                    }
+        		},
+        		error : function() {
+        			//$.messager.alert('提示','添加成功!','info');
+        		}
+			});
+		});
+		//重置
+		$('#clear').click(function(){
+			$('#ctWorkScriptFrm')[0].reset();
+		});
+		//clear
+		$('#clear').click(function(){
+			$('#ctWorkScriptFrm')[0].reset();
+		});
+		//返回
+		$('#goback').click(function(){
+			location.href="browser?homeworkId=${ctWorkScript.homeworkId}";
+		});
+});
+</script>
+
+

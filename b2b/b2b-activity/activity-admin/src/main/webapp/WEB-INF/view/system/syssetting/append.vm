@@ -1,0 +1,105 @@
+</html>
+  #parse( 'global/header.vm' )
+<style type="text/css">
+		input,textarea{
+			width:400px;
+			border:1px solid #ccc;
+			padding:2px;
+		}
+</style>
+<script type="text/javascript">
+</script>
+<body >
+	#parse('global/gobackbar.vm' )
+	<div region="center" class="easyui-panel" title="添加" tools="#gobackbar"style="width:500px;margin:0px auto;">
+	<form id="sysSettingFrm" method="post">
+	<table>
+		 					  			    			    			    											
+				<tr>
+    				<td>标识:</td>
+        			<td>
+										<input id="key" name="key" value="" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+					
+					</td>
+    			</tr>
+					  			    			    			    											
+				<tr>
+    				<td>属性:</td>
+        			<td>
+										<textarea id="attribute" name="attribute"  class="comments" onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea>
+					
+					</td>
+    			</tr>
+					  			    			    			    											
+				<tr>
+    				<td>电话区号:</td>
+        			<td>
+										<input id="category" name="category" value="" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+					
+					</td>
+    			</tr>
+					  			    			    				    				    			    							
+				<tr>
+    				<td>邮编:</td>
+        			<td>
+										<input id="sqrt" name="sqrt" value="" class="easyui-numberbox"    precision=0  maxLength=22/>
+					
+					</td>
+    			</tr>
+					  	
+	</table>
+	</form>
+	    <div style="text-align:center;padding:5px">
+	    	<a href="javascript:void(0)" id="append" class="easyui-linkbutton" >Submit</a>
+	    	<a href="javascript:void(0)" id="clear" class="easyui-linkbutton"  >Clear</a>
+	    </div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+		/********select 选项表**********/
+																								 
+		/*********select**************/
+		//提交
+		$('#append').click(function(){
+		    var _data={
+								        																		key:$('#key').val() , 
+        		        																		attribute:$('#attribute').val() , 
+        		        																		category:$('#category').val() , 
+        		        																		sqrt:$('#sqrt').val()  
+        		        						};
+			var aj = $.ajax( {
+        		url : '$request.contextPath/sysSetting/doAppend.json',// 跳转到 action     
+        		data : _data,
+        		type : 'post',
+        		dataType:'text',
+        		success : function(data) {
+                    if (data.code!=0){
+                     	$.messager.alert('提示','添加成功!','info');
+                    	$("#sysSetting",parent.document.body).attr("src","$request.contextPath/sysSetting/browser");
+                    }else{
+                    	$.messager.alert('提示','添加失败!','info');
+                    }
+        		},
+        		error : function() {
+        			//$.messager.alert('提示','添加成功!','info');
+        		}
+			});
+		});
+		//重置
+		$('#clear').click(function(){
+			$('#sysSettingFrm')[0].reset();
+		});
+		//clear
+		$('#clear').click(function(){
+			$('#sysSettingFrm')[0].reset();
+		});
+		//返回
+		$('#goback').click(function(){
+			location.href="browser";
+		});
+});
+</script>
+
+

@@ -1,0 +1,220 @@
+</html>
+#parse( 'global/header.vm' )
+<style type="text/css">
+		input,textarea{
+			width:200px;
+			border:1px solid #ccc;
+			padding:2px;
+		}
+</style>
+<script type="text/javascript">
+</script>
+<body >
+	 #parse('global/gobackbar.vm' )
+	<div region="center" class="easyui-panel" title="修改" tools="#gobackbar" style="width:400px;margin:0px auto;">
+	<form id="sysAdminFrm" method="post" action="doModify" >
+	<table>
+		 							<input id="id" name="id" type="hidden" value="$!{sysAdmin.id}"/>
+					  			    			    			    																	
+				<tr>
+    				<td>账户名:</td>
+        			<td>
+											<input type="text" id="name" name="name" value="$!{sysAdmin.name}" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>密码:</td>
+        			<td>
+											<input type="text" id="pwd" name="pwd" value="$!{sysAdmin.pwd}" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>是否有效:</td>
+        			<td>
+											<input type="text" id="enabled" name="enabled" value="$!{sysAdmin.enabled}" class="easyui-validatebox"   validType='length[0,1]'   maxLength=1/>
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>是否锁定:</td>
+        			<td>
+											<input type="text" id="locked" name="locked" value="$!{sysAdmin.locked}" class="easyui-validatebox"   validType='length[0,1]'   maxLength=1/>
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>锁定时间:</td>
+        			<td>
+											<input type="text" id="lockTime" name="lockTime" value="$!{sysAdmin.lockTime}" class="easyui-datetimebox"   validType='length[0,11]'   />
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>登录时间:</td>
+        			<td>
+											<input type="text" id="loginTime" name="loginTime" value="$!{sysAdmin.loginTime}" class="easyui-datetimebox"   validType='length[0,11]'   />
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>手机:</td>
+        			<td>
+											<input type="text" id="mobile" name="mobile" value="$!{sysAdmin.mobile}" class="easyui-validatebox"   validType='length[0,16]'   maxLength=16/>
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>电邮:</td>
+        			<td>
+											<input type="text" id="email" name="email" value="$!{sysAdmin.email}" class="easyui-validatebox"   validType='length[0,32]'   maxLength=32/>
+  					
+					</td>
+    			</tr>
+					  			    			    				    			    																	
+				<tr>
+    				<td>登录错误次数:</td>
+        			<td>
+											<input type="text" id="loginFailureCount" name="loginFailureCount" value="$!{sysAdmin.loginFailureCount}" class="easyui-numberbox"   validType='length[0,9]'   maxLength='9'/>
+  					
+					</td>
+    			</tr>
+					  			    			    				    			    																	
+				<tr>
+    				<td>添加人:</td>
+        			<td>
+											<input type="text" id="appendBy" name="appendBy" value="$!{sysAdmin.appendBy}" class="easyui-numberbox"   validType='length[0,18]'   maxLength='18'/>
+  					
+					</td>
+    			</tr>
+					  			    			    				    			    																	
+				<tr>
+    				<td>修改人:</td>
+        			<td>
+											<input type="text" id="modifyBy" name="modifyBy" value="$!{sysAdmin.modifyBy}" class="easyui-numberbox"   validType='length[0,18]'   maxLength='18'/>
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>添加时间:</td>
+        			<td>
+											<input type="text" id="appendTime" name="appendTime" value="$!{sysAdmin.appendTime}" class="easyui-datetimebox"   validType='length[0,11]'   />
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>最后修改时间:</td>
+        			<td>
+											<input type="text" id="modifyTime" name="modifyTime" value="$!{sysAdmin.modifyTime}" class="easyui-datetimebox"   validType='length[0,11]'   />
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>调挤:</td>
+        			<td>
+											<input type="text" id="salt" name="salt" value="$!{sysAdmin.salt}" class="easyui-validatebox"   validType='length[0,6]'   maxLength=6/>
+  					
+					</td>
+    			</tr>
+					  			    			    				    			    																	
+				<tr>
+    				<td>状态:</td>
+        			<td>
+											<input type="text" id="status" name="status" value="$!{sysAdmin.status}" class="easyui-numberbox"   validType='length[0,2]'   maxLength='2'/>
+  					
+					</td>
+    			</tr>
+					  			    			    				    			    																	
+				<tr>
+    				<td>头像:</td>
+        			<td>
+											<input type="text" id="pictureId" name="pictureId" value="$!{sysAdmin.pictureId}" class="easyui-numberbox"   validType='length[0,9]'   maxLength='9'/>
+  					
+					</td>
+    			</tr>
+					  	
+	</table>
+	</form>
+	    <div style="text-align:center;padding:5px">
+	    	<a href="javascript:void(0)" id="save" class="easyui-linkbutton" >Submit</a>
+	    	<a href="javascript:void(0)" id="clear" class="easyui-linkbutton"  >Clear</a>
+	    </div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+		/********select 选项表**********/
+																																																																								 
+		/*********select**************/
+		$('#save').click(function(){
+			var flag = true;
+		 $('#sysAdminFrm').each(function () {
+    		if ($(this).attr('required') || $(this).attr('validType')) {
+    			if (!$(this).validatebox('isValid')) {
+        			flag = false;
+        			return;
+   		 		}
+    		}
+		})
+		if (flag){
+		var _data={
+																id:$('#id').val() , 
+        														name:$('#name').val() , 
+        														pwd:$('#pwd').val() , 
+        														enabled:$('#enabled').val() , 
+        														locked:$('#locked').val() , 
+        														lockTime:$('#lockTime').val() , 
+        														loginTime:$('#loginTime').val() , 
+        														mobile:$('#mobile').val() , 
+        														email:$('#email').val() , 
+        														loginFailureCount:$('#loginFailureCount').val() , 
+        														appendBy:$('#appendBy').val() , 
+        														modifyBy:$('#modifyBy').val() , 
+        														appendTime:$('#appendTime').val() , 
+        														modifyTime:$('#modifyTime').val() , 
+        														salt:$('#salt').val() , 
+        														status:$('#status').val() , 
+        														pictureId:$('#pictureId').val()  
+        						};
+		var aj = $.ajax( {
+				url : '$request.contextPath/${beanModeName}/sysAdmin/doModify.json',// 跳转到 action     
+				data : _data,
+				type : 'post',
+				dataType:'text',
+				success : function(data) {
+				 if (data.id!=0){
+				 	$.messager.alert('提示','修改成功!','info');
+					$("#sysAdmin",parent.document.body).attr("src","$request.contextPath/${beanModeName}/sysAdmin/browser");
+				 }else{
+					$.messager.alert('提示','修改失败!','info');
+				 }
+				},
+				error : function() {
+					$.messager.alert('提示','修改失败!','info');
+				}
+			});
+		}
+			
+		});
+		$('#clear').click(function(){
+			$('#sysAdminFrm')[0].reset();
+		});
+		//返回
+		$('#goback').click(function(){
+			location.href="browser";
+		});
+});
+</script>
+

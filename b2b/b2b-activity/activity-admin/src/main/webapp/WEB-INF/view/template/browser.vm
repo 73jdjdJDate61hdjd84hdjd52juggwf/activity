@@ -1,0 +1,33 @@
+</html>
+#parse( 'global/header.vm' )
+<script type="text/javascript">
+</script>
+<body >
+
+
+	<h2>项目配置</h2>
+	<div class="demo-info">
+		<div class="demo-tip icon-tip"></div>
+		<div>The DataGrid is created from markup, no JavaScript code needed.</div>
+	</div>
+	<div style="margin:10px 0;"><a href="$request.contextPath/template/append">append</a></div>
+	<div style="margin:10px 0;"><a href="$request.contextPath/template/doInit">自动生成</a></div>
+	
+	<table class="easyui-datagrid" title="Basic DataGrid" style="width:700px;height:250px"
+			data-options="singleSelect:true,collapsible:true,url:'../datagrid/datagrid_data1.json'">
+		<thead>
+			<tr>
+				<th data-options="field:'tableName',width:80">表名</th>
+				<th data-options="field:'commentsInfo',width:100">描述</th>
+				<th data-options="field:'listprice',width:80,align:'right'">List Price</th>
+				<th data-options="field:'unitcost',width:80,align:'right'">Unit Cost</th>
+				<th data-options="field:'attr1',width:250">Attribute</th>
+				<th data-options="field:'status',width:60,align:'center'">Status</th>
+			</tr>
+		</thead>
+	</table>
+
+	
+</body>
+</html>
+

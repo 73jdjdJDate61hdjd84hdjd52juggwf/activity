@@ -1,0 +1,157 @@
+</html>
+#parse( 'global/header.vm' )
+<style type="text/css">
+		input,textarea{
+			width:200px;
+			border:1px solid #ccc;
+			padding:2px;
+		}
+</style>
+<script type="text/javascript">
+</script>
+<body >
+	 #parse('global/gobackbar.vm' )
+	<div region="center" class="easyui-panel" title="修改" tools="#gobackbar" style="width:400px;margin:0px auto;">
+	<form id="ctDataSourceFrm" method="post" action="doModify" >
+	<table>
+		 							<input id="id" name="id" type="hidden" value="$!{ctDataSource.id}"/>
+					  			    			    			    																	
+				<tr>
+    				<td>名称:</td>
+        			<td>
+											<input type="text" id="name" name="name" value="$!{ctDataSource.name}" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>JDBC模板:</td>
+        			<td>
+											<input type="text" id="jdbcTemplete" name="jdbcTemplete" value="$!{ctDataSource.jdbcTemplete}" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>方言:</td>
+        			<td>
+											<textarea id="dialect" name="dialect" onpropertychange= "this.style.posHeight=this.scrollHeight ">$!{ctDataSource.dialect}</textarea>
+					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>连接字符串:</td>
+        			<td>
+											<textarea id="jdbcUrl" name="jdbcUrl" onpropertychange= "this.style.posHeight=this.scrollHeight ">$!{ctDataSource.jdbcUrl}</textarea>
+					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>用户名:</td>
+        			<td>
+											<input type="text" id="jdbcUser" name="jdbcUser" value="$!{ctDataSource.jdbcUser}" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>密码:</td>
+        			<td>
+											<input type="text" id="jdbcPassword" name="jdbcPassword" value="$!{ctDataSource.jdbcPassword}" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>连接驱动:</td>
+        			<td>
+											<textarea id="jdbcDriveclassname" name="jdbcDriveclassname" onpropertychange= "this.style.posHeight=this.scrollHeight ">$!{ctDataSource.jdbcDriveclassname}</textarea>
+					
+					</td>
+    			</tr>
+					  			    			    				    			    																	
+				<tr>
+    				<td>状态:</td>
+        			<td>
+											<input type="text" id="status" name="status" value="$!{ctDataSource.status}" class="easyui-numberbox"  required='true' validType='length[1,2]'   maxLength='2'/>
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>备注:</td>
+        			<td>
+											<textarea id="remark" name="remark" onpropertychange= "this.style.posHeight=this.scrollHeight ">$!{ctDataSource.remark}</textarea>
+					
+					</td>
+    			</tr>
+					  	
+	</table>
+	</form>
+	    <div style="text-align:center;padding:5px">
+	    	<a href="javascript:void(0)" id="save" class="easyui-linkbutton" >Submit</a>
+	    	<a href="javascript:void(0)" id="clear" class="easyui-linkbutton"  >Clear</a>
+	    </div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+		/********select 选项表**********/
+																																												 
+		/*********select**************/
+		$('#save').click(function(){
+			var flag = true;
+		 $('#ctDataSourceFrm').each(function () {
+    		if ($(this).attr('required') || $(this).attr('validType')) {
+    			if (!$(this).validatebox('isValid')) {
+        			flag = false;
+        			return;
+   		 		}
+    		}
+		})
+		if (flag){
+		var _data={
+																id:$('#id').val() , 
+        														name:$('#name').val() , 
+        														jdbcTemplete:$('#jdbcTemplete').val() , 
+        														dialect:$('#dialect').val() , 
+        														jdbcUrl:$('#jdbcUrl').val() , 
+        														jdbcUser:$('#jdbcUser').val() , 
+        														jdbcPassword:$('#jdbcPassword').val() , 
+        														jdbcDriveclassname:$('#jdbcDriveclassname').val() , 
+        														status:$('#status').val() , 
+        														remark:$('#remark').val()  
+        						};
+		var aj = $.ajax( {
+				url : '$request.contextPath/${beanModeName}/ctDataSource/doModify.json',// 跳转到 action     
+				data : _data,
+				type : 'post',
+				dataType:'text',
+				success : function(data) {
+				 if (data.id!=0){
+				 	$.messager.alert('提示','修改成功!','info');
+					$("#ctDataSource",parent.document.body).attr("src","$request.contextPath/${beanModeName}/ctDataSource/browser");
+				 }else{
+					$.messager.alert('提示','修改失败!','info');
+				 }
+				},
+				error : function() {
+					$.messager.alert('提示','修改失败!','info');
+				}
+			});
+		}
+			
+		});
+		$('#clear').click(function(){
+			$('#ctDataSourceFrm')[0].reset();
+		});
+		//返回
+		$('#goback').click(function(){
+			location.href="browser";
+		});
+});
+</script>
+

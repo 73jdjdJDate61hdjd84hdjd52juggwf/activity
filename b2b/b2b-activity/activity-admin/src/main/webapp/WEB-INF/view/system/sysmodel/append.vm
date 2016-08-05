@@ -1,0 +1,112 @@
+#parse( 'global/header.vm' )
+
+<script type="text/javascript" src="$static_path/7niu/qiniu.js"></script>
+<script type="text/javascript" src="$static_path/7niu/moxie.js"></script>
+<script type="text/javascript" src="$static_path/7niu/plupload.dev.js"></script>
+<script type="text/javascript" src="$static_path/7niu/jqeury-7niu-plugin.js"></script>
+
+
+<style type="text/css">
+		input,textarea{
+			width:400px;
+			border:1px solid #ccc;
+			padding:2px;
+		}
+</style>
+<script type="text/javascript">
+</script>
+<body >
+	#parse('global/gobackbar.vm' )
+	<div region="center" class="easyui-panel" title="添加" tools="#gobackbar"style="width:500px;margin:0px auto;">
+	<form id="sysModelFrm" method="post">
+	<table>
+		 			    			    			    											
+				<tr>
+    				<td>模块编号:</td>
+        			<td>
+										<input id="modelCode" name="modelCode" value="" class="easyui-validatebox"  required='true' validType='length[1,16]'   maxLength=16/>
+					
+					</td>
+    			</tr>
+					  			    			    			    											
+				<tr>
+    				<td>模块名:</td>
+        			<td>
+						<input id="name" name="name" value="" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+					</td>
+    			</tr>
+					  			    			    			    											
+				<tr>
+    				<td>模块关键字:</td>
+        			<td>
+						<input id="keyword" name="keyword" value="" class="easyui-validatebox"  required='true' validType='length[1,16]'   maxLength=16/>
+					</td>
+    			</tr>
+				
+				<tr>
+    				<td>图片：</td>
+        			<td>
+						 <div  id="qn_container">
+							<a class="addFileBtn" id="pickfiles">upload</a>
+        					<div class="ipt">
+                                <div type="file" class="easyui-qnUpload" data-options="replace:false"></div> 
+                                <div class="rd-previewImage-container" id="rd_previewImage_container"></div>
+							</div>
+						 </div>
+					 
+					</td>
+    			</tr>
+				 
+                
+                
+					  	
+	</table>
+	</form>
+	    <div style="text-align:center;padding:5px">
+	    	<a href="javascript:void(0)" id="append" class="easyui-linkbutton" >Submit</a>
+	    	<a href="javascript:void(0)" id="clear" class="easyui-linkbutton"  >Clear</a>
+	    </div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+		/********select 选项表**********/
+																								 
+		/*********select**************/
+		//提交
+		$('#append').click(function(){
+			var aj = $.ajax( {
+        		url : 'doAppend.json',// 跳转到 action     
+        		data : $("#sysModelFrm").serialize(),
+        		type : 'post',
+        		dataType:'text',
+        		success : function(data) {
+                    if (data.code!=0){
+                     	$.messager.alert('提示','添加成功!','info');
+                    	$("#sysModel",parent.document.body).attr("src","$request.contextPath/sysModel/browser");
+                    }else{
+                    	$.messager.alert('提示','添加失败!','info');
+                    }
+        		},
+        		error : function() {
+        			//$.messager.alert('提示','添加成功!','info');
+        		}
+			});
+		});
+		//重置
+		$('#clear').click(function(){
+			$('#sysModelFrm')[0].reset();
+		});
+		//clear
+		$('#clear').click(function(){
+			$('#sysModelFrm')[0].reset();
+		});
+		//返回
+		$('#goback').click(function(){
+			location.href="browser";
+		});
+});
+</script>
+
+

@@ -1,0 +1,194 @@
+
+## modify.vm
+
+## @auther:fan
+## @date:
+#parse( 'global/header.vm' )
+<style type="text/css">
+     input,textarea{
+            width:400px;
+            border:1px solid #ccc;
+            padding:2px;
+         }
+ </style>
+ <script type="text/javascript">
+ </script>
+<body >
+#parse('global/gobackbar.vm' )
+div region="center" class="easyui-panel" title="修改" tools="#gobackbar"style="width:500px;margin:0px auto;">
+<input type="hidden" id="id" name="id" value="$sysAdmin.id" />
+<form id="sysAdminFrm" method="post">
+<table>
+<tr>
+<td>账户名:</td>
+<td>
+<input id="name" name="name" value="$!{sysAdmin.name}" class="easyui-validatebox"  required=="true" maxLength=32 />
+</td>
+</tr>
+<tr>
+<td>密码:</td>
+<td>
+<input id="pwd" name="pwd" value="$!{sysAdmin.pwd}" class="easyui-validatebox"  required=="true" maxLength=32 />
+</td>
+</tr>
+<tr>
+<td>是否有效:</td>
+<td>
+<select id="enabled" name="enabled" class="easyui-combobox" style="width:200px;" required="false" editable="false"></select>
+</td>
+</tr>
+<tr>
+<td>是否锁定:</td>
+<td>
+<select id="locked" name="locked" class="easyui-combobox" style="width:200px;" required="false" editable="false"></select>
+</td>
+</tr>
+<tr>
+<td>锁定时间:</td>
+<td>
+<input id="lockTime" name="lockTime" value="$!{sysAdmin.lockTime}" class="easyui-validatebox"  required=="true" maxLength=19 />
+</td>
+</tr>
+<tr>
+<td>登录时间:</td>
+<td>
+<input id="loginTime" name="loginTime" value="$!{sysAdmin.loginTime}" class="easyui-validatebox"  required=="true" maxLength=19 />
+</td>
+</tr>
+<tr>
+<td>手机:</td>
+<td>
+<input id="mobile" name="mobile" value="$!{sysAdmin.mobile}" class="easyui-validatebox"  required=="false" maxLength=16 />
+</td>
+</tr>
+<tr>
+<td>电邮:</td>
+<td>
+<input id="email" name="email" value="$!{sysAdmin.email}" class="easyui-validatebox"  required=="false" maxLength=32 />
+</td>
+</tr>
+<tr>
+<td>登录错误次数:</td>
+<td>
+<input id="loginFailureCount" name="loginFailureCount" value="$!{sysAdmin.loginFailureCount}" class="easyui-validatebox"  required=="false" maxLength=10 />
+</td>
+</tr>
+<tr>
+<td>添加人:</td>
+<td>
+<input id="appendBy" name="appendBy" value="$!{sysAdmin.appendBy}" class="easyui-validatebox"  required=="false" maxLength=19 />
+</td>
+</tr>
+<tr>
+<td>修改人:</td>
+<td>
+<input id="modifyBy" name="modifyBy" value="$!{sysAdmin.modifyBy}" class="easyui-validatebox"  required=="false" maxLength=19 />
+</td>
+</tr>
+<tr>
+<td>添加时间:</td>
+<td>
+<input id="appendTime" name="appendTime" value="$!{sysAdmin.appendTime}" class="easyui-validatebox"  required=="false" maxLength=19 />
+</td>
+</tr>
+<tr>
+<td>最后修改时间:</td>
+<td>
+<input id="modifyTime" name="modifyTime" value="$!{sysAdmin.modifyTime}" class="easyui-validatebox"  required=="false" maxLength=19 />
+</td>
+</tr>
+<tr>
+<td>调挤:</td>
+<td>
+<input id="salt" name="salt" value="$!{sysAdmin.salt}" class="easyui-validatebox"  required=="false" maxLength=6 />
+</td>
+</tr>
+<tr>
+<td>状态:</td>
+<td>
+<select id="status" name="status" class="easyui-combobox" style="width:200px;" required="false" editable="false"></select>
+</td>
+</tr>
+<tr>
+<td>头像:</td>
+<td>
+<input id="pictureId" name="pictureId" value="$!{sysAdmin.pictureId}" class="easyui-validatebox"  required=="false" maxLength=19 />
+</td>
+</tr>
+</table>
+</form>
+<div style="text-align:center;padding:5px">
+<a href="javascript:void(0)" id="append" class="easyui-linkbutton">添加</a>
+<a href="javascript:void(0)" id="clear" class="easyui-linkbutton"  >重置</a>
+</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+/********select 选项表**********/
+//填充
+    $("#enabled").combobox({
+        data:${sof.getKeyRange("SYSADMIN","ENABLED")},
+     tvalueField:'id',
+     textField:'text'
+ });
+//定位
+ $("#enabled").combobox("setValue",$!{sysAdmin.enabled});
+
+//填充
+    $("#locked").combobox({
+        data:${sof.getKeyRange("SYSADMIN","LOCKED")},
+     tvalueField:'id',
+     textField:'text'
+ });
+//定位
+ $("#locked").combobox("setValue",$!{sysAdmin.locked});
+
+//填充
+    $("#status").combobox({
+        data:${sof.getKeyRange("SYSADMIN","STATUS")},
+     tvalueField:'id',
+     textField:'text'
+ });
+//定位
+ $("#status").combobox("setValue",$!{sysAdmin.status});
+
+/*********select**************/
+//提交
+$('#append').click(function()'{'
+    if (!$("#sysAdminFrm").form("validate"))
+         return; 
+ }
+});
+var aj = $.ajax( {
+    url : "$request.contextPath/sysAdmin/doAppend.json",// 跳转到 action 
+    data : $("sysAdminFrm").serialize(),
+     type : 'post',
+     dataType:'text',
+     success : function(data) {
+         if (data.code!=0){
+             $.messager.alert('提示','添加成功!','info');
+               $("#sysAdmin",parent.document.body).attr("src","$request.contextPath/sysAdmin/browser");
+         }else{
+             $.messager.alert('提示','添加失败!','info');
+         }
+     },
+     error : function() {
+     }
+ });
+});
+//重置
+$('#clear').click(function(){
+$("#sysAdminFrm")[0].reset();
+});
+// clear
+ $('#clear').click(function(){
+$("#sysAdminFrm")[0].reset();
+});
+// 返回
+$('#goback').click(function(){
+location.href='browser';
+});
+});
+</script>

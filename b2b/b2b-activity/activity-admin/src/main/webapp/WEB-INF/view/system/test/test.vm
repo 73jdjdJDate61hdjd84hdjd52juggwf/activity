@@ -1,0 +1,91 @@
+</html>
+  #parse( 'global/header.vm' )
+<style type="text/css">
+		input,textarea{
+			width:200px;
+			border:1px solid #ccc;
+			padding:2px;
+		}
+</style>
+<script type="text/javascript" src="$static_path/easyui/js/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript">
+    var json=${list};
+	$(function() {  			    
+	    
+         for(var i=0;i<json.length;i++){  
+          	$("#subUrl").append("<option value='"+i+"'>"+json[i].url+"</option>");  
+       	}	
+       
+		$("#submitBt").bind("click", function() {
+		 var _data=eval("("+$('#reqParam').val()+")");
+		 var _url='$request.contextPath'+$("#subUrl option:selected").text();
+		 var _method=$('#subMethod').val();
+		 $.ajax( {
+				url : _url,     
+				data : _data,
+				type : _method,
+				dataType:'text',
+				success : function(data) {
+					$("#message").val(data);
+				},
+				error : function() {   
+				alert("异常！");
+			}
+			});
+		});	
+		
+	    $("#subUrl").bind("change", function() {	
+	    	var s=json[this.value].method;
+	        var a=json[this.value].datadetail;	  	  
+	          $("#subMethod").val(s);   
+		      $("#reqParam").val(a);
+      });    
+		
+	});
+	 
+</script>
+<body >
+	<div style="background:#fafafa;padding:10px;width:600px;height:700px;">       
+	        
+			
+			<div>
+	            <label for="email" align="5" style="text-align:center;">提交URL:</label>
+	            <select name="email" id="subUrl" lass="easyui-combobox" style="width:500px;">
+	            <option>请选择......</option>
+	            </select>
+	        </div>	  
+			<div>
+	            <label for="name">url:</label><input type="Button" value="Submit" id="url" style="width:60px;"/></div>
+	        </div>	
+			<div>
+	            <label for="name">返回类型：</label>
+				 <select id="subMethod" name="model"   style="width:200px;" >
+        	        <option value=".json">json</option>
+                    <option value=".xml">xml</option>
+                  </select>
+				</div>
+	        </div>
+			<div><label for="name">提交方式:</label>
+	        <select id="subMethod" name="model"   style="width:200px;" >
+	        <option value="1">GET</option>
+            <option value="2">POST</option>
+            <option value="3">PUT</option>
+            <option value="4">DELETEL</option>
+           </select>
+	        <div>
+	            <label for="subject" top="5" style="text-align:center;">请求参数:</label>
+	            <textarea name="message"  id="reqParam" style="height:100px;width:500px;"></textarea>
+	        </div>
+	         
+	        </div>
+	          <div><input type="Button" value="Submit" id="submitBt" style="width:60px;"></div>
+	        <div>
+	            <label for="message" top="5" style="text-align:center;">返回结果:</label>
+        		<textarea id="message" readOnly name="message" style="height:400px;width:500px;"></textarea>
+            </div>
+	           
+	</div>
+</body>
+</html>
+
+

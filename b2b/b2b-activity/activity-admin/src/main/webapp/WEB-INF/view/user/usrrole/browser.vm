@@ -1,0 +1,12 @@
+#parse( 'global/header.vm' )
+
+	
+<script type="text/javascript" src="$static_path/js/${beanModeName}/usrrole/browser.js?webName=${request.contextPath}&USRROLE_STATUS_DATA=${sof.getValRange('USRROLE','STATUS')}"></script>
+<body >
+	<table id="grid" width="350"></table>
+</body>
+</html>
+<script type="text/javascript">
+</script>
+
+

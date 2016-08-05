@@ -1,0 +1,13 @@
+#parse( 'global/header.vm' )
+
+	
+<script type="text/javascript" src='$static_path/js/chtcktools/cthomework/browser.js?webName=$request.contextPath&CTHOMEWORK_CATEGORY_DATA=${sof.getValRange('CTHOMEWORK','CATEGORY')}&CTHOMEWORK_STATUS_DATA=${sof.getValRange('CTHOMEWORK','STATUS')}'></script>
+<body>
+	<table id="grid" width="350"></table>
+	
+</body>
+</html>
+<script type="text/javascript">
+</script>
+
+

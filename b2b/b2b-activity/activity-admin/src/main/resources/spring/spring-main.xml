@@ -9,9 +9,9 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd"
 	default-autowire="byName">
-	<!--静态资源 -->
-	<mvc:annotation-driven />
-	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
+
+	
 
 	<!-- 默认访问跳转到登录页面(即定义无需Controller的url<->view直接映射) -->
 	<mvc:view-controller path="/" view-name="forward:/login.jsp" />
@@ -21,7 +21,6 @@
 		<constructor-arg value="UTF-8" />
 	</bean>
 
-<mvc:view-controller path="/" view-name="forward:/login.jsp"/>  
 	 
 	<bean id="defaultAnnotationHandlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" ></bean> 
 					
@@ -163,5 +162,10 @@
 		<property name="maxUploadSize" value="3145728"/>   
 	</bean>  
 
+
+	<!--静态资源 -->
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler/> 
+    
 
 </beans>

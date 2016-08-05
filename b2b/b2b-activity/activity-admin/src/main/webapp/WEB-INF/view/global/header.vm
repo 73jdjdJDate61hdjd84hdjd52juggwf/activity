@@ -15,20 +15,17 @@
 ## specific language governing permissions and limitations
 ## under the License.
 <html>
-#set( $static_resource = "$request.contextPath/resources" )
-#set ($h5_download="http://a.app.qq.com/o/simple.jsp?pkgname=cn.com.my.treat.app")
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+#set( $static_path = "$request.contextPath/resources" )
 
-##<script type="text/javascript" src="$static_path/easyui/js/jquery-1.7.2.min.js"></script>
-##<script type="text/javascript" src="$static_path/easyui/js/jquery.easyui.min.js"></script>
-##<script type="text/javascript" src="$static_path/easyui/js/easyui-lang-zh_CN.js"></script>
-##<script type="text/javascript" src="$static_path/global/common.js"></script>
+<script type="text/javascript" src="$static_path/easyui/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="$static_path/easyui/js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="$static_path/easyui/js/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="$static_path/global/common.js"></script>
 
-##<link rel="stylesheet" type="text/css" href="$static_path/easyui/themes/default/easyui.css" id="swicth-style">
-##<link rel="stylesheet" type="text/css" href="$static_path/easyui/themes/icon.css">
-##<link rel="stylesheet" type="text/css" href="$static_path/css/main.css" />
-##<link rel="stylesheet" type="text/css" href="$static_path/css/demo.css" />
+<link rel="stylesheet" type="text/css" href="$static_path/easyui/themes/default/easyui.css" id="swicth-style">
+<link rel="stylesheet" type="text/css" href="$static_path/easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="$static_path/css/main.css" />
+<link rel="stylesheet" type="text/css" href="$static_path/css/demo.css" />
 
 
- <script type="text/javascript" src="$static_resource/js/common.js"></script>
- <link rel="stylesheet" href="$static_resource/css/flexible.css" />
- <link href="$static_resource/css/login.css" rel="stylesheet" type="text/css" /

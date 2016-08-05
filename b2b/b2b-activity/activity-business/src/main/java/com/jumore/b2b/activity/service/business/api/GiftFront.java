@@ -10,13 +10,19 @@ package com.jumore.b2b.activity.service.business.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.dozer.Mapper;
 
+import com.alibaba.fastjson.TypeReference;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jumore.b2b.activity.comm.Pages;
+import com.jumore.b2b.activity.comm.page.BaseModel;
 import com.jumore.b2b.activity.core.util.SpringBeanUtils;
 import com.jumore.b2b.activity.model.Gift;
 import com.jumore.b2b.activity.model.GiftQueryHelper;
@@ -30,6 +36,11 @@ public class GiftFront implements IGiftFront {
 
 	
 	IGiftService giftService;
+	
+	@Resource
+    Mapper dozerMapper;
+	
+	
 	/**
 	 * 综合查询
 	 */
@@ -136,11 +147,41 @@ public class GiftFront implements IGiftFront {
 			PageHelper.startPage(0, 10);
 			list = giftService.selectByExample(example);
 			PageInfo<Gift> page = new PageInfo<Gift>(list);
+			
 			list = page.getList();
 		}
 		List<GiftRes> test=new ArrayList<GiftRes>();
 		/*return new Pages<GiftRes>(test, total,
 				0, 10);*/
 		return new GiftRes();
+	}
+
+
+	@Override
+	public void browser(BaseModel<GiftReq, GiftRes> pages) {
+		GiftQueryHelper example = new GiftQueryHelper();
+		/** 查询业务逻辑 **/
+		// example.createCriteria().andXXXEqualTo(xx.())
+		/** 查询业务逻辑完 **/
+		/** ######################_我是分隔线###################### **/
+
+		List<GiftRes> rows = new ArrayList<GiftRes>();
+		long total = giftService.countByExample(example);
+		if (total > 0) {
+			/** 排序业务逻辑 **/
+			// example.setOrderByClause(XX)
+			/** 排序业务逻辑完 **/
+			/** ######################_我是分隔线###################### **/
+			// 分页插件查询
+			Class<List<GiftRes>> t=null;
+			 //List<Map<String, Object>> listMap = JSON.parseObject(jsonString, new TypeReference<List<Map<String,Object>>>(){});  (注意：此处可看出fastjson反射机制比gson更准确， id = 1001 通过fastjson反射仍是 id = 1001 , 而通过gson反射结果 为 id =1001.0 ,
+			//("", clazz);
+			rows = dozerMapper.map(giftService.selectByExample(example), null);
+			
+			//rows = dozerMapper.map(giftService.selectByExample(example),new Class<List<GiftRes>>(){});
+			
+		}
+		pages.setTotal(total);
+		pages.setRows(rows);
 	}
 }

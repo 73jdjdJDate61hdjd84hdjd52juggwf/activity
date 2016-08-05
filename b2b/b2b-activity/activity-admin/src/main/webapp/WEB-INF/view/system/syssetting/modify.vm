@@ -1,0 +1,112 @@
+</html>
+#parse( 'global/header.vm' )
+<style type="text/css">
+		input,textarea{
+			width:200px;
+			border:1px solid #ccc;
+			padding:2px;
+		}
+</style>
+<script type="text/javascript">
+</script>
+<body >
+	 #parse('global/gobackbar.vm' )
+	<div region="center" class="easyui-panel" title="修改" tools="#gobackbar" style="width:400px;margin:0px auto;">
+	<form id="sysSettingFrm" method="post" action="doModify" >
+	<table>
+		 							<input id="id" name="id" type="hidden" value="$!{sysSetting.id}"/>
+					  			    			    			    																	
+				<tr>
+    				<td>标识:</td>
+        			<td>
+											<input type="text" id="key" name="key" value="$!{sysSetting.key}" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+  					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>属性:</td>
+        			<td>
+											<textarea id="attribute" name="attribute" onpropertychange= "this.style.posHeight=this.scrollHeight ">$!{sysSetting.attribute}</textarea>
+					
+					</td>
+    			</tr>
+					  			    			    			    																	
+				<tr>
+    				<td>电话区号:</td>
+        			<td>
+											<input type="text" id="category" name="category" value="$!{sysSetting.category}" class="easyui-validatebox"  required='true' validType='length[1,32]'   maxLength=32/>
+  					
+					</td>
+    			</tr>
+					  			    			    				    			    																	
+				<tr>
+    				<td>邮编:</td>
+        			<td>
+											<input type="text" id="sqrt" name="sqrt" value="$!{sysSetting.sqrt}" class="easyui-numberbox"   validType='length[0,5]'   maxLength='5'/>
+  					
+					</td>
+    			</tr>
+					  	
+	</table>
+	</form>
+	    <div style="text-align:center;padding:5px">
+	    	<a href="javascript:void(0)" id="save" class="easyui-linkbutton" >Submit</a>
+	    	<a href="javascript:void(0)" id="clear" class="easyui-linkbutton"  >Clear</a>
+	    </div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(function(){
+		/********select 选项表**********/
+																								 
+		/*********select**************/
+		$('#save').click(function(){
+			var flag = true;
+		 $('#sysSettingFrm').each(function () {
+    		if ($(this).attr('required') || $(this).attr('validType')) {
+    			if (!$(this).validatebox('isValid')) {
+        			flag = false;
+        			return;
+   		 		}
+    		}
+		})
+		if (flag){
+		var _data={
+																id:$('#id').val() , 
+        														key:$('#key').val() , 
+        														attribute:$('#attribute').val() , 
+        														category:$('#category').val() , 
+        														sqrt:$('#sqrt').val()  
+        						};
+		var aj = $.ajax( {
+				url : '$request.contextPath/${beanModeName}/sysSetting/doModify.json',// 跳转到 action     
+				data : _data,
+				type : 'post',
+				dataType:'text',
+				success : function(data) {
+				 if (data.id!=0){
+				 	$.messager.alert('提示','修改成功!','info');
+					$("#sysSetting",parent.document.body).attr("src","$request.contextPath/${beanModeName}/sysSetting/browser");
+				 }else{
+					$.messager.alert('提示','修改失败!','info');
+				 }
+				},
+				error : function() {
+					$.messager.alert('提示','修改失败!','info');
+				}
+			});
+		}
+			
+		});
+		$('#clear').click(function(){
+			$('#sysSettingFrm')[0].reset();
+		});
+		//返回
+		$('#goback').click(function(){
+			location.href="browser";
+		});
+});
+</script>
+
