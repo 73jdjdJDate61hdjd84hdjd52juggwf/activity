@@ -21,7 +21,6 @@
   </dependencies>
   <packaging>pom</packaging>
   <modules>
-    <module>activity-mq-consumer</module>
     <module>activity-provider</module>
     <module>activity-consumer</module>
     <module>activity-message</module>

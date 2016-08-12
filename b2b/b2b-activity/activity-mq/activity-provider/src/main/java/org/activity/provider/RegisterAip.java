@@ -1,13 +1,7 @@
-package com.rabbit.message.mq;
-
-import javax.annotation.Resource;
+package org.activity.provider;
 
 import org.junit.Assert;
 import org.springframework.stereotype.Component;
-
-import com.rabbit.message.IConsumer;
-import com.rabbit.model.SysSetting;
-import com.rabbit.service.ISysSettingService;
 
 /**
  * 注册消息消费
@@ -22,22 +16,27 @@ public class RegisterAip implements IConsumer {
 	public final static String REGISTER_QIEIE = "REGISTER_QIEIE";//以前未声明的queue
 	
 	
-	@Resource
-	ISysSettingService sysSettingService;
+	//@Resource
+	//ISysSettingService sysSettingService;
 	
 	@Override
 	public void process(Object e) {// 消费程序这里只是打印信息
 		Assert.assertNotNull(e);
-		if (e instanceof SysSetting) {
+		/*if (e instanceof SysSetting) {
 			SysSetting sysSetting = (SysSetting) e;
 			sysSettingService.insert(sysSetting);
 			callBack();
-		}
+		}*/
 	}
 
 	@Override
 	public void callBack() {
-		System.out.println("回调方法");
+		try {
+			System.out.println("回调方法");
+		} catch (Exception e) {
+			//如果回高调失败。回调地址放在统一缓存中，统一处理
+		}
+		
 
 	}
 

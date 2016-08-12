@@ -1,4 +1,4 @@
-package com.rabbit.message.mq;
+package org.activity.provider;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletConfig;
@@ -13,9 +13,6 @@ import me.poplaris.rabbitmq.client.impl.DefaultEventController;
 import org.apache.log4j.Logger;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-
-import com.rabbit.message.IConsumer;
-import com.rabbit.model.SysSetting;
 
 /**
  * 系统启用初始化类
@@ -76,14 +73,14 @@ public class RabbitMQServlet extends HttpServlet {
 			controller.add(RegisterAip.REGISTER_EXCHANGE, RegisterAip.REGISTER_QIEIE, consumer);
 			controller.start();
 			
-			SysSetting setting=new SysSetting();
+			/*SysSetting setting=new SysSetting();
 			setting.setAttribute("rabbitmq");
 			setting.setCategory("test");
 			setting.setKey("mq");
-			setting.setSqrt(0);
+			setting.setSqrt(0);*/
 			
 			try {
-				controller.getEopEventTemplate().send(RegisterAip.REGISTER_EXCHANGE, RegisterAip.REGISTER_QIEIE, setting);
+				controller.getEopEventTemplate().send(RegisterAip.REGISTER_EXCHANGE, RegisterAip.REGISTER_QIEIE, null);
 			} catch (SendRefuseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

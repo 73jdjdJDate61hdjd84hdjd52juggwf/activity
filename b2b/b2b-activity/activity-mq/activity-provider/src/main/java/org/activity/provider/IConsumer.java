@@ -1,4 +1,4 @@
-package com.rabbit.message;
+package org.activity.provider;
 
 import me.poplaris.rabbitmq.client.EventProcesser;
 

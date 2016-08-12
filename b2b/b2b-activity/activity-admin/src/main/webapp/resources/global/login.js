@@ -5,4 +5,6 @@ $(function(){
 			top.location = self.location;
 		}
 	}
+	
+	alert(1);
 });

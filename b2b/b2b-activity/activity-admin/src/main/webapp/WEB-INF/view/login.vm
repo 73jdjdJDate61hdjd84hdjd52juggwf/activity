@@ -1,5 +1,6 @@
 #parse( 'global/header.vm' )
 <script type="text/javascript" src="$static_path/global/login.js"></script>
+<script type="text/javascript" src="$static_path/global/removeCoockie.js"></script>
 <script type="text/javascript">
  
 
@@ -56,6 +57,8 @@
 	    		<td>
 	    		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>
 	    	    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">重置</a>
+				
+				 <a href="javascript:void(0)" class="easyui-linkbutton" onclick="test()">remove cookic</a>
 	    		</td>
 	    		</tr>
 	    	</table>
@@ -71,6 +74,10 @@
 		}
 		function clearForm(){
 			$('#loginFrm').form('clear');
+		}
+		function test(){
+			alert(1);
+			removeCoockie();
 		}
 	</script>
 </div>
